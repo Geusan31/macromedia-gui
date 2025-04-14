@@ -4,12 +4,16 @@
  */
 package macromedia;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BorderFactory;
@@ -28,10 +32,6 @@ import javax.swing.SwingUtilities;
  */
 public class OrderDetail extends javax.swing.JFrame {
 
-//    private JFrame frame;
-////    private JPanel formContainer;
-//    private JButton addButton;
-//    private List<JPanel> orderForms = new ArrayList<>();
     /**
      * Creates new form OrderDetail
      */
@@ -48,7 +48,6 @@ public class OrderDetail extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         mainPanel = new javax.swing.JPanel();
         jButton5 = new javax.swing.JButton();
@@ -175,37 +174,41 @@ public class OrderDetail extends javax.swing.JFrame {
             formContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(formContainerLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addGroup(formContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel9)
+                .addGroup(formContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(formContainerLayout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(398, 398, 398)
-                        .addComponent(jLabel8))
-                    .addGroup(formContainerLayout.createSequentialGroup()
-                        .addComponent(txtNamaItem, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39)
-                        .addComponent(txtHargaUnit))
-                    .addComponent(jLabel7)
-                    .addGroup(formContainerLayout.createSequentialGroup()
-                        .addGroup(formContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(formContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(formContainerLayout.createSequentialGroup()
-                                .addComponent(jLabel16)
-                                .addGap(224, 224, 224)
-                                .addComponent(jLabel17)
-                                .addGap(205, 205, 205)
-                                .addComponent(jLabel18))
+                                .addComponent(jLabel5)
+                                .addGap(398, 398, 398)
+                                .addComponent(jLabel8))
                             .addGroup(formContainerLayout.createSequentialGroup()
-                                .addComponent(txtQty, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtNamaItem, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(39, 39, 39)
+                                .addComponent(txtHargaUnit))
+                            .addComponent(jLabel7)
+                            .addGroup(formContainerLayout.createSequentialGroup()
+                                .addGroup(formContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(formContainerLayout.createSequentialGroup()
+                                        .addComponent(jLabel16)
+                                        .addGap(224, 224, 224)
+                                        .addComponent(jLabel17)
+                                        .addGap(205, 205, 205)
+                                        .addComponent(jLabel18))
+                                    .addGroup(formContainerLayout.createSequentialGroup()
+                                        .addComponent(txtQty, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtFrek, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtPeriode, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(18, 18, 18)
-                                .addComponent(txtFrek, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtPeriode, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addGroup(formContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel19)
-                            .addComponent(txtDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(scrollDeskripsi))
-                .addContainerGap(18, Short.MAX_VALUE))
+                                .addGroup(formContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel19)
+                                    .addComponent(txtDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(scrollDeskripsi))
+                        .addContainerGap(114, Short.MAX_VALUE))
+                    .addGroup(formContainerLayout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         formContainerLayout.setVerticalGroup(
             formContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,16 +246,14 @@ public class OrderDetail extends javax.swing.JFrame {
         mainContainer.setLayout(mainContainerLayout);
         mainContainerLayout.setHorizontalGroup(
             mainContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(mainContainerLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(formContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(219, Short.MAX_VALUE))
+            .addComponent(formContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         mainContainerLayout.setVerticalGroup(
             mainContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainContainerLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
                 .addComponent(formContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 2877, Short.MAX_VALUE))
+                .addGap(22, 22, 22))
         );
 
         scrollPane.setViewportView(mainContainer);
@@ -333,146 +334,172 @@ public class OrderDetail extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton7ActionPerformed
 
+//    private JPanel mainContainer;
     private int rowCounter = 0;
-    private List<JPanel> formList = new ArrayList<>();
+    private java.util.List<JScrollPane> formList = new java.util.ArrayList<>();
     private void tambahOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tambahOrderMouseClicked
-        // TODO add your handling code here:
-        // Panel pembungkus untuk setiap order detail
-        tambahOrder.setBorder(BorderFactory.createLineBorder(Color.RED, 3));
-        JPanel newForm = createNewFormContainer();
+        JScrollPane newFormScrollPane = createNewFormContainer();
 
-        // Simpan formContainer baru di dalam list agar bisa diakses nanti
-        formList.add(newForm);
-
-        // Tambahkan ke mainContainer
+        // Setup GridBagConstraints for the new form
         GridBagConstraints gbcPanel = new GridBagConstraints();
         gbcPanel.gridx = 0;
-        gbcPanel.gridy = rowCounter++;  // Susun ke bawah
+        gbcPanel.gridy = rowCounter++;
         gbcPanel.weightx = 1.0;
         gbcPanel.fill = GridBagConstraints.HORIZONTAL;
-        mainContainer.add(newForm, gbcPanel);
 
-        // Paksa refresh tampilan
-        mainContainer.setPreferredSize(new Dimension(mainContainer.getWidth(), mainContainer.getHeight() + 100));
+        System.out.println(newFormScrollPane);
+
+        // Add new form to the main container
+        mainContainer.add(newFormScrollPane, gbcPanel);
+
+        // Refresh the container to show the new form
+        mainContainer.setMinimumSize(new Dimension(900, 400));
         mainContainer.revalidate();
         mainContainer.repaint();
+
+        // Add the new form to the formList
+        formList.add(newFormScrollPane);
+
+        // Optional: Display the total number of forms for debugging
         System.out.println("FormContainer added! Total forms: " + formList.size());
     }//GEN-LAST:event_tambahOrderMouseClicked
 
-    private JPanel createNewFormContainer() {
-        JPanel formContainer = new JPanel(new GridBagLayout());
+    private JScrollPane createNewFormContainer() {
+        JPanel formContainer = new JPanel();
         formContainer.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         formContainer.setBackground(Color.WHITE);
 
-        // Label Order Detail
+        System.out.println("ASDASDJASDHAISODHASDH");
+        // Label Order Detail (Atas)
         JLabel orderDetailLabel = new JLabel("Order Detail");
         orderDetailLabel.setFont(new Font("Arial", Font.BOLD, 16));
 
-        GridBagConstraints gbcLabel = new GridBagConstraints();
-        gbcLabel.gridx = 0;
-        gbcLabel.gridy = 0;
-        gbcLabel.insets = new Insets(10, 5, 5, 5);
-        gbcLabel.anchor = GridBagConstraints.WEST;
-        formContainer.add(orderDetailLabel, gbcLabel);
+        GridBagConstraints gbcLabelTop = new GridBagConstraints();
+        gbcLabelTop.gridx = 0;
+        gbcLabelTop.gridy = 0;
+        gbcLabelTop.gridwidth = 2;
+        gbcLabelTop.insets = new Insets(10, 5, 5, 5);
+        gbcLabelTop.anchor = GridBagConstraints.WEST;
+        formContainer.add(orderDetailLabel, gbcLabelTop);
+//
+//        // Komponen Input
+//        JLabel namaItemLabel = new JLabel("Nama Item");
+//        JTextField namaItemField = new JTextField(20);
+//        JLabel hargaUnitLabel = new JLabel("Harga Per Unit");
+//        JTextField hargaUnitField = new JTextField(20);
+//        JLabel deskripsiLabel = new JLabel("Deskripsi");
+//        JTextArea deskripsiArea = new JTextArea(3, 20);
+//        JScrollPane deskripsiScrollPane = new JScrollPane(deskripsiArea);
+//        JLabel qtyLabel = new JLabel("Qty");
+//        JTextField qtyField = new JTextField(5);
+//        JLabel frekLabel = new JLabel("Frek");
+//        JTextField frekField = new JTextField(5);
+//        JLabel periodeLabel = new JLabel("Periode");
+//        JTextField periodeField = new JTextField(5);
+//        JLabel discountLabel = new JLabel("Discount");
+//        JTextField discountField = new JTextField(5);
+//
+//        // Tambahkan komponen input ke formContainer dengan GridBagConstraints
+//        GridBagConstraints gbcNamaItemLabel = new GridBagConstraints();
+//        gbcNamaItemLabel.gridx = 0;
+//        gbcNamaItemLabel.gridy = 1;
+//        gbcNamaItemLabel.anchor = GridBagConstraints.WEST;
+//        formContainer.add(namaItemLabel, gbcNamaItemLabel);
+//
+//        GridBagConstraints gbcNamaItemField = new GridBagConstraints();
+//        gbcNamaItemField.gridx = 1;
+//        gbcNamaItemField.gridy = 1;
+//        gbcNamaItemField.fill = GridBagConstraints.HORIZONTAL;
+//        formContainer.add(namaItemField, gbcNamaItemField);
+//
+//        GridBagConstraints gbcHargaUnitLabel = new GridBagConstraints();
+//        gbcHargaUnitLabel.gridx = 0;
+//        gbcHargaUnitLabel.gridy = 2;
+//        gbcHargaUnitLabel.anchor = GridBagConstraints.WEST;
+//        formContainer.add(hargaUnitLabel, gbcHargaUnitLabel);
+//
+//        GridBagConstraints gbcHargaUnitField = new GridBagConstraints();
+//        gbcHargaUnitField.gridx = 1;
+//        gbcHargaUnitField.gridy = 2;
+//        gbcHargaUnitField.fill = GridBagConstraints.HORIZONTAL;
+//        formContainer.add(hargaUnitField, gbcHargaUnitField);
+//
+//        GridBagConstraints gbcDeskripsiLabel = new GridBagConstraints();
+//        gbcDeskripsiLabel.gridx = 0;
+//        gbcDeskripsiLabel.gridy = 3;
+//        gbcDeskripsiLabel.anchor = GridBagConstraints.WEST;
+//        formContainer.add(deskripsiLabel, gbcDeskripsiLabel);
+//
+//        GridBagConstraints gbcDeskripsiArea = new GridBagConstraints();
+//        gbcDeskripsiArea.gridx = 1;
+//        gbcDeskripsiArea.gridy = 3;
+//        gbcDeskripsiArea.fill = GridBagConstraints.HORIZONTAL;
+//        formContainer.add(deskripsiScrollPane, gbcDeskripsiArea);
+//
+//        GridBagConstraints gbcQtyLabel = new GridBagConstraints();
+//        gbcQtyLabel.gridx = 0;
+//        gbcQtyLabel.gridy = 4;
+//        gbcQtyLabel.anchor = GridBagConstraints.WEST;
+//        formContainer.add(qtyLabel, gbcQtyLabel);
+//
+//        GridBagConstraints gbcQtyField = new GridBagConstraints();
+//        gbcQtyField.gridx = 1;
+//        gbcQtyField.gridy = 4;
+//        gbcQtyField.anchor = GridBagConstraints.WEST;
+//        formContainer.add(qtyField, gbcQtyField);
+//
+//        GridBagConstraints gbcFrekLabel = new GridBagConstraints();
+//        gbcFrekLabel.gridx = 0;
+//        gbcFrekLabel.gridy = 5;
+//        gbcFrekLabel.anchor = GridBagConstraints.WEST;
+//        formContainer.add(frekLabel, gbcFrekLabel);
+//
+//        GridBagConstraints gbcFrekField = new GridBagConstraints();
+//        gbcFrekField.gridx = 1;
+//        gbcFrekField.gridy = 5;
+//        gbcFrekField.anchor = GridBagConstraints.WEST;
+//        formContainer.add(frekField, gbcFrekField);
+//
+//        GridBagConstraints gbcPeriodeLabel = new GridBagConstraints();
+//        gbcPeriodeLabel.gridx = 0;
+//        gbcPeriodeLabel.gridy = 6;
+//        gbcPeriodeLabel.anchor = GridBagConstraints.WEST;
+//        formContainer.add(periodeLabel, gbcPeriodeLabel);
+//
+//        GridBagConstraints gbcPeriodeField = new GridBagConstraints();
+//        gbcPeriodeField.gridx = 1;
+//        gbcPeriodeField.gridy = 6;
+//        gbcPeriodeField.anchor = GridBagConstraints.WEST;
+//        formContainer.add(periodeField, gbcPeriodeField);
+//
+//        GridBagConstraints gbcDiscountLabel = new GridBagConstraints();
+//        gbcDiscountLabel.gridx = 0;
+//        gbcDiscountLabel.gridy = 7;
+//        gbcDiscountLabel.anchor = GridBagConstraints.WEST;
+//        gbcDiscountLabel.fill = GridBagConstraints.HORIZONTAL;
+//        formContainer.add(discountLabel, gbcDiscountLabel);
+//
+//        GridBagConstraints gbcDiscountField = new GridBagConstraints();
+//        gbcDiscountField.gridx = 1;
+//        gbcDiscountField.gridy = 7;
+//        gbcDiscountField.anchor = GridBagConstraints.WEST;
+//        formContainer.add(discountField, gbcDiscountField);
+//
+//        // Label Order Detail (Bawah)
+//        JLabel orderDetailLabelBottom = new JLabel("Order Detail");
+//        orderDetailLabelBottom.setFont(new Font("Arial", Font.BOLD, 16));
+//        GridBagConstraints gbcLabelBottom = new GridBagConstraints();
+//        gbcLabelBottom.gridx = 0;
+//        gbcLabelBottom.gridy = 8; // Baris terakhir
+//        gbcLabelBottom.gridwidth = 2;
+//        gbcLabelBottom.insets = new Insets(5, 5, 10, 5);
+//        gbcLabelBottom.anchor = GridBagConstraints.WEST;
+//        formContainer.add(orderDetailLabelBottom, gbcLabelBottom);
 
-        // Panel untuk form input
-        JPanel orderPanel = new JPanel(new GridBagLayout());
-        orderPanel.setOpaque(false);
+        // Tambahkan formContainer ke JScrollPane
+        JScrollPane scrollPane = new JScrollPane(formContainer);
 
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5, 5, 5, 5);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-
-        // Buat instance baru untuk setiap input field
-        JTextField txtNamaItem = new JTextField(15);
-        JTextField txtHargaUnit = new JTextField(10);
-        JTextArea txtDeskripsi = new JTextArea(1, 1);
-        txtDeskripsi.setLineWrap(true);
-        txtDeskripsi.setWrapStyleWord(true);
-
-        // Paksa ukuran tetap
-        txtDeskripsi.setPreferredSize(new Dimension(200, 50));
-        txtDeskripsi.setMinimumSize(new Dimension(200, 50));
-        txtDeskripsi.setMaximumSize(new Dimension(200, 50));
-
-        JScrollPane scrollDeskripsi = new JScrollPane(txtDeskripsi);
-        scrollDeskripsi.setPreferredSize(new Dimension(200, 50));
-        scrollDeskripsi.setMinimumSize(new Dimension(200, 50));
-        scrollDeskripsi.setMaximumSize(new Dimension(200, 50));
-
-        // Pastikan tidak ada efek layout yang menyebabkan perubahan ukuran
-        scrollDeskripsi.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        scrollDeskripsi.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        gbc.weightx = 0;
-        gbc.weighty = 0;
-        gbc.fill = GridBagConstraints.NONE; // Jangan biarkan elemen meregang
-        orderPanel.add(new JLabel("Deskripsi:"), gbc);
-
-        gbc.gridx = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL; // Hanya melebar, tidak bertambah tinggi
-        gbc.weightx = 1.0;
-        gbc.weighty = 0;
-        orderPanel.add(scrollDeskripsi, gbc);
-
-        JTextField txtQty = new JTextField(5);
-        JTextField txtFrek = new JTextField(5);
-        JTextField txtPeriode = new JTextField(5);
-        JTextField txtDiscount = new JTextField(5);
-
-        // Tambahkan elemen-elemen ke orderPanel
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        orderPanel.add(new JLabel("Nama Item:"), gbc);
-        gbc.gridx = 1;
-        orderPanel.add(txtNamaItem, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        orderPanel.add(new JLabel("Harga Per Unit:"), gbc);
-        gbc.gridx = 1;
-        orderPanel.add(txtHargaUnit, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        orderPanel.add(new JLabel("Deskripsi:"), gbc);
-        gbc.gridx = 1;
-        orderPanel.add(scrollDeskripsi, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy = 3;
-        orderPanel.add(new JLabel("Qty:"), gbc);
-        gbc.gridx = 1;
-        orderPanel.add(txtQty, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy = 4;
-        orderPanel.add(new JLabel("Frek:"), gbc);
-        gbc.gridx = 1;
-        orderPanel.add(txtFrek, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy = 5;
-        orderPanel.add(new JLabel("Periode:"), gbc);
-        gbc.gridx = 1;
-        orderPanel.add(txtPeriode, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy = 6;
-        orderPanel.add(new JLabel("Discount:"), gbc);
-        gbc.gridx = 1;
-        orderPanel.add(txtDiscount, gbc);
-
-        // Tambahkan orderPanel ke formContainer
-        GridBagConstraints gbcForm = new GridBagConstraints();
-        gbcForm.gridx = 0;
-        gbcForm.gridy = 1;
-        gbcForm.fill = GridBagConstraints.HORIZONTAL;
-        formContainer.add(orderPanel, gbcForm);
-
-        return formContainer;
+        return scrollPane;
     }
 
     /**

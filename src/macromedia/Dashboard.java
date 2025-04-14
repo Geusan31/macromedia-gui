@@ -4,6 +4,21 @@
  */
 package macromedia;
 
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.DefaultCellEditor;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+
 /**
  *
  * @author Helios
@@ -16,6 +31,115 @@ public class Dashboard extends javax.swing.JFrame {
     public Dashboard() {
         initComponents();
         setLocationRelativeTo(null);
+        loadProjects();
+    }
+
+    public void loadProjects() {
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        model.setRowCount(0); // Hapus data lama agar tidak duplikat
+
+        for (int i = 0; i < CreateProject.projectList.size(); i++) {
+            String[] project = CreateProject.projectList.get(i);
+            model.addRow(new Object[]{
+                project[0], // Order Date
+                project[1], // Nama Project
+                project[2], // Client Company
+                project[3], // Event Date
+                project[4], // Status
+                "Edit/Delete" // Placeholder untuk tombol
+            });
+        }
+        jTable2.getColumn("Action").setCellRenderer(new ButtonRenderer());
+        jTable2.getColumn("Action").setCellEditor(new ButtonEditor(new JCheckBox()));
+    }
+
+    class ButtonRenderer extends JPanel implements TableCellRenderer {
+
+        private final JButton editButton = new JButton();
+        private final JButton deleteButton = new JButton();
+
+        public ButtonRenderer() {
+            setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
+
+            // **Set ikon untuk tombol Edit**
+            editButton.setIcon(new ImageIcon(getClass().getResource("/icons/edit1.png")));
+            editButton.setPreferredSize(new Dimension(20, 20));
+            editButton.setBorderPainted(false);
+            editButton.setContentAreaFilled(false);
+
+            // **Set ikon untuk tombol Delete**
+            deleteButton.setIcon(new ImageIcon(getClass().getResource("/icons/delete.png")));
+            deleteButton.setPreferredSize(new Dimension(20, 20));
+            deleteButton.setBorderPainted(false);
+            deleteButton.setContentAreaFilled(false);
+
+            add(editButton);
+            add(deleteButton);
+        }
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            return this;
+        }
+    }
+
+    class ButtonEditor extends DefaultCellEditor {
+
+        protected JPanel panel = new JPanel();
+        protected JButton editButton = new JButton();
+        protected JButton deleteButton = new JButton();
+        private int selectedRow;
+
+        public ButtonEditor(JCheckBox checkBox) {
+            super(checkBox);
+            panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
+
+            // **Set ikon untuk tombol Edit**
+            editButton.setIcon(new ImageIcon(getClass().getResource("/icons/edit1.png")));
+            editButton.setPreferredSize(new Dimension(20, 40));
+            editButton.setBorderPainted(false);
+            editButton.setContentAreaFilled(false);
+
+            // **Set ikon untuk tombol Delete**
+            deleteButton.setIcon(new ImageIcon(getClass().getResource("/icons/delete.png")));
+            deleteButton.setPreferredSize(new Dimension(20, 40));
+            deleteButton.setBorderPainted(false);
+            deleteButton.setContentAreaFilled(false);
+
+            panel.add(editButton);
+            panel.add(deleteButton);
+
+            // **Event klik tombol Edit**
+            editButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    JOptionPane.showMessageDialog(null, "Edit data di baris: " + selectedRow);
+                }
+            });
+
+            // **Event klik tombol Delete**
+            deleteButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    int confirm = JOptionPane.showConfirmDialog(null, "Hapus data ini?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+                    if (confirm == JOptionPane.YES_OPTION) {
+                        CreateProject.projectList.remove(selectedRow);
+                        loadProjects(); // Refresh tabel
+                    }
+                }
+            });
+        }
+
+//        @Override
+//        public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+//            this.selectedRow = row;
+//            return panel;
+//        }
+//
+//        @Override
+//        public Object getCellEditorValue() {
+//            return "Edit/Delete";
+//        }
     }
 
     /**
@@ -148,7 +272,7 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
         // TODO add your handling code here:
-        new Create().setVisible(true);
+        new CreateProject().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton13ActionPerformed
 
