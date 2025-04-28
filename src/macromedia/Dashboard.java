@@ -9,6 +9,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.DefaultCellEditor;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -41,16 +43,38 @@ public class Dashboard extends javax.swing.JFrame {
         for (int i = 0; i < CreateProject.projectList.size(); i++) {
             String[] project = CreateProject.projectList.get(i);
             model.addRow(new Object[]{
-                project[0], // Order Date
-                project[1], // Nama Project
-                project[2], // Client Company
-                project[3], // Event Date
-                project[4], // Status
-                "Edit/Delete" // Placeholder untuk tombol
+                project[0],
+                project[1],
+                project[2],
+                project[3],
+                project[4],
+                "Edit/Delete"
             });
         }
-        jTable2.getColumn("Action").setCellRenderer(new ButtonRenderer());
-        jTable2.getColumn("Action").setCellEditor(new ButtonEditor(new JCheckBox()));
+
+        TableActionEvent event = new TableActionEvent() {
+            @Override
+            public void onEdit(int row) {
+                System.out.println("Edit: " + row);
+            }
+
+            @Override
+            public void onDelete(int row) {
+                System.out.println("Delete: " + row);
+                if(jTable2.isEditing()) {
+                    jTable2.getCellEditor().stopCellEditing();
+                }
+                model.removeRow(row);
+            }
+
+            @Override
+            public void onView(int row) {
+                System.out.println("View: " + row);
+            }
+        };
+
+        jTable2.getColumn("Action").setCellRenderer(new TableActionCellRender());
+        jTable2.getColumn("Action").setCellEditor(new TableActionCellEditor(event));
     }
 
     class ButtonRenderer extends JPanel implements TableCellRenderer {
@@ -62,14 +86,16 @@ public class Dashboard extends javax.swing.JFrame {
             setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
 
             // **Set ikon untuk tombol Edit**
-            editButton.setIcon(new ImageIcon(getClass().getResource("/icons/edit1.png")));
-            editButton.setPreferredSize(new Dimension(20, 20));
+//            editButton.setIcon(new ImageIcon(getClass().getResource("/icons/edit1.png")));
+            editButton.setText("EDIT");
+            editButton.setPreferredSize(new Dimension(20, 40));
             editButton.setBorderPainted(false);
             editButton.setContentAreaFilled(false);
 
             // **Set ikon untuk tombol Delete**
-            deleteButton.setIcon(new ImageIcon(getClass().getResource("/icons/delete.png")));
-            deleteButton.setPreferredSize(new Dimension(20, 20));
+//            deleteButton.setIcon(new ImageIcon(getClass().getResource("/icons/delete.png")));
+            deleteButton.setText("DELETE");
+            deleteButton.setPreferredSize(new Dimension(20, 40));
             deleteButton.setBorderPainted(false);
             deleteButton.setContentAreaFilled(false);
 
@@ -89,57 +115,68 @@ public class Dashboard extends javax.swing.JFrame {
         protected JButton editButton = new JButton();
         protected JButton deleteButton = new JButton();
         private int selectedRow;
+        private TableActionEvent event;
 
-        public ButtonEditor(JCheckBox checkBox) {
+        public ButtonEditor(JCheckBox checkBox, TableActionEvent event) {
             super(checkBox);
+            this.event = event;
             panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
 
             // **Set ikon untuk tombol Edit**
-            editButton.setIcon(new ImageIcon(getClass().getResource("/icons/edit1.png")));
-            editButton.setPreferredSize(new Dimension(20, 40));
+//            editButton.setIcon(new ImageIcon(getClass().getResource("/icons/edit1.png")));
+            editButton.setText("EDIT");
+            editButton.setPreferredSize(new Dimension(40, 30));
             editButton.setBorderPainted(false);
             editButton.setContentAreaFilled(false);
-
-            // **Set ikon untuk tombol Delete**
-            deleteButton.setIcon(new ImageIcon(getClass().getResource("/icons/delete.png")));
-            deleteButton.setPreferredSize(new Dimension(20, 40));
-            deleteButton.setBorderPainted(false);
-            deleteButton.setContentAreaFilled(false);
-
-            panel.add(editButton);
-            panel.add(deleteButton);
-
-            // **Event klik tombol Edit**
             editButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    JOptionPane.showMessageDialog(null, "Edit data di baris: " + selectedRow);
+                    fireEditingStopped();
+                    event.onEdit(selectedRow);
                 }
             });
 
-            // **Event klik tombol Delete**
+            // **Set ikon untuk tombol Delete**
+//            deleteButton.setIcon(new ImageIcon(getClass().getResource("/icons/delete.png")));
+            deleteButton.setText("DELETE");
+            deleteButton.setPreferredSize(new Dimension(40, 30));
+            deleteButton.setBorderPainted(false);
+            deleteButton.setContentAreaFilled(false);
             deleteButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    int confirm = JOptionPane.showConfirmDialog(null, "Hapus data ini?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
-                    if (confirm == JOptionPane.YES_OPTION) {
-                        CreateProject.projectList.remove(selectedRow);
-                        loadProjects(); // Refresh tabel
-                    }
+                    fireEditingStopped();
+                    event.onDelete(selectedRow);
                 }
             });
+
+            panel.add(editButton);
+            panel.add(deleteButton);
         }
 
-//        @Override
-//        public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
-//            this.selectedRow = row;
-//            return panel;
-//        }
-//
-//        @Override
-//        public Object getCellEditorValue() {
-//            return "Edit/Delete";
-//        }
+        @Override
+        public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+            selectedRow = row;
+            return panel;
+        }
+
+        @Override
+        public Object getCellEditorValue() {
+            return "";
+        }
+
+        @Override
+        public boolean isCellEditable(java.util.EventObject e) {
+            if (e instanceof MouseEvent) {
+                return ((MouseEvent) e).getID() == MouseEvent.MOUSE_CLICKED;
+            }
+            return false;
+        }
+
+        @Override
+        public boolean shouldSelectCell(java.util.EventObject anEvent) {
+            return true;
+        }
     }
 
     /**
@@ -172,10 +209,7 @@ public class Dashboard extends javax.swing.JFrame {
         jTable2.setForeground(new java.awt.Color(51, 51, 51));
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, "", ""}
             },
             new String [] {
                 "Order Date", "Nama project", "Client Company", "Event Date", "Status", "Action"
@@ -185,7 +219,7 @@ public class Dashboard extends javax.swing.JFrame {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                true, true, true, true, true, false
+                false, false, false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -196,6 +230,7 @@ public class Dashboard extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTable2.setRowHeight(40);
         jScrollPane2.setViewportView(jTable2);
 
         jLabel21.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N

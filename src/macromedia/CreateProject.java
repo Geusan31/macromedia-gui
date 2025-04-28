@@ -782,23 +782,24 @@ public class CreateProject extends javax.swing.JFrame {
                     return false;
                 }
 
+                // Lakukan perbaikan serupa untuk qtyField, frekField, dan periodeField
                 if (qtyField == null || qtyField.getText().trim().isEmpty()
                         || !qtyField.getText().matches("\\d+")
-                        || Integer.parseInt(qtyField.getText()) <= 0) {
+                        || (qtyField.getText().trim().length() > 0 && Integer.parseInt(qtyField.getText().trim()) <= 0)) {
                     JOptionPane.showMessageDialog(this, "Qty harus angka lebih dari 0!", "Error", JOptionPane.ERROR_MESSAGE);
                     return false;
                 }
 
                 if (frekField == null || frekField.getText().trim().isEmpty()
                         || !frekField.getText().matches("\\d+")
-                        || Integer.parseInt(frekField.getText()) <= 0) {
+                        || (frekField.getText().trim().length() > 0 && Integer.parseInt(frekField.getText().trim()) <= 0)) {
                     JOptionPane.showMessageDialog(this, "Frekuensi harus angka lebih dari 0!", "Error", JOptionPane.ERROR_MESSAGE);
                     return false;
                 }
 
                 if (periodeField == null || periodeField.getText().trim().isEmpty()
                         || !periodeField.getText().matches("\\d+")
-                        || Integer.parseInt(periodeField.getText()) <= 0) {
+                        || (periodeField.getText().trim().length() > 0 && Integer.parseInt(periodeField.getText().trim()) <= 0)) {
                     JOptionPane.showMessageDialog(this, "Periode harus angka lebih dari 0!", "Error", JOptionPane.ERROR_MESSAGE);
                     return false;
                 }
