@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package macromedia;
 
 import java.awt.BorderLayout;
@@ -40,14 +37,9 @@ import javax.swing.SwingUtilities;
 import javax.swing.Box;
 import javax.swing.JViewport;
 
-/**
- *
- * @author Helios
- */
 public class CreateProject extends javax.swing.JFrame {
 
     private CardLayout cardLayout;
-    // Step 1 Components
     private JTextField projectNameField;
     private JTextField orderDateField;
     private JRadioButton singleDateRadio;
@@ -65,7 +57,6 @@ public class CreateProject extends javax.swing.JFrame {
 
     private int currentStep = 1;
 
-//    Step 2 Components
     private JTextField namaItemField;
     private JTextField hargaPerUnitField;
     private JTextField deskripsiField;
@@ -74,16 +65,13 @@ public class CreateProject extends javax.swing.JFrame {
     private JTextField periodeField;
     private JTextField discountField;
 
-    // Text Area for Notes From Client
     private JTextArea notesFromClientArea;
-    private static final int MAX_CHARACTERS = 200; // Batas Maksimal Karakter
+    private static final int MAX_CHARACTERS = 200; 
 
-//    Text Area for Description
     private JTextArea descriptionArea;
 
     private JTextArea summaryArea;
 
-    // Navigation Buttons
     private JButton nextButton;
     private JButton backButton;
     private JButton resetButton;
@@ -112,14 +100,13 @@ public class CreateProject extends javax.swing.JFrame {
         orderDateField.setText(todayDate);
         orderDateField.setEditable(false);
 
-        // NAVIGATION BUTTONS
         JPanel buttonPanel = new JPanel(new BorderLayout());
 
         JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));  // Reset di kiri
         JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT)); // Next & Back di kanan
 
         resetButton = new JButton("Reset");
-        resetButton.setVisible(false); // Hanya terlihat di Step 2
+        resetButton.setVisible(false); 
         leftPanel.add(resetButton);
 
         backButton = new JButton("Back");
@@ -143,8 +130,8 @@ public class CreateProject extends javax.swing.JFrame {
                     return;
                 }
                 if (currentStep == 2) {
-                    if (!validateOrderDetails()) { // Periksa validasi order detail sebelum lanjut
-                        return; // Jika tidak valid, hentikan proses
+                    if (!validateOrderDetails()) { 
+                        return; 
                     }
                     generateSummary();
                 }
@@ -165,7 +152,7 @@ public class CreateProject extends javax.swing.JFrame {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (currentStep > 1) { // Pastikan tidak kurang dari Step 1
+                if (currentStep > 1) { 
                     currentStep--;
                     System.out.println("Current Step: " + currentStep);
                     cardLayout.show(mainPanel, "Step" + currentStep);
@@ -181,9 +168,6 @@ public class CreateProject extends javax.swing.JFrame {
         buttonPanel.add(leftPanel, BorderLayout.WEST);
         buttonPanel.add(rightPanel, BorderLayout.EAST);
 
-//        backButton.addActionListener(e -> navigate(-1));
-//        nextButton.addActionListener(e -> navigate(1));
-//        resetButton.addActionListener(e -> resetForm());
         add(mainPanel, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
 
@@ -193,20 +177,17 @@ public class CreateProject extends javax.swing.JFrame {
     }
 
     private JPanel createStep1() {
-        // Step 1: Project Details
         JPanel step1 = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        // Step Label
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 2;
         JLabel stepLabel1 = new JLabel("Step 1: Project Details", JLabel.LEFT);
         step1.add(stepLabel1, gbc);
 
-        // Project Name (Label di atas input)
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.gridwidth = 1;
@@ -218,7 +199,6 @@ public class CreateProject extends javax.swing.JFrame {
         projectNameField.setBorder(BorderFactory.createEmptyBorder(10, 5, 10, 5));
         step1.add(projectNameField, gbc);
 
-        // Order Date (Label di atas input)
         gbc.gridx = 1;
         gbc.gridy = 1;
         step1.add(new JLabel("Order Date:"), gbc);
@@ -230,13 +210,13 @@ public class CreateProject extends javax.swing.JFrame {
         orderDateField.setEditable(false);
         step1.add(orderDateField, gbc);
 
-        // DATE TYPE LABEL
+
         JLabel dateTypeLabel = new JLabel("Date Type:");
         gbc.gridx = 0;
         gbc.gridy = 3;
         step1.add(dateTypeLabel, gbc);
 
-        // RADIO BUTTON PANEL (Single/Multiple Date)
+
         JPanel radioPanel = new JPanel();
         radioPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         singleDateRadio = new JRadioButton("Single Date");
@@ -252,13 +232,12 @@ public class CreateProject extends javax.swing.JFrame {
         gbc.gridy = 4;
         step1.add(radioPanel, gbc);
 
-        // EVENT DATE LABEL (SEBELAH RADIO BUTTON)
+
         JLabel eventDateLabel = new JLabel("Event Date:");
         gbc.gridx = 1;
         gbc.gridy = 3;
         step1.add(eventDateLabel, gbc);
 
-        // SINGLE DATE FIELD (INPUT DI BAWAH EVENT DATE)
         singleDateField = new JTextField(20);
         gbc.gridx = 1;
         gbc.gridy = 4;
@@ -266,7 +245,6 @@ public class CreateProject extends javax.swing.JFrame {
         singleDateField.setBorder(BorderFactory.createEmptyBorder(10, 5, 10, 5));
         step1.add(singleDateField, gbc);
 
-        // MULTIPLE DATE PANEL
         multipleDatePanel = new JPanel();
         multipleDatePanel.setLayout(new BoxLayout(multipleDatePanel, BoxLayout.Y_AXIS));
         multipleDateFields = new ArrayList<>();
@@ -290,7 +268,6 @@ public class CreateProject extends javax.swing.JFrame {
         step1.add(addDateButton, gbc);
         addDateButton.setVisible(false);
 
-        // RADIO BUTTON LOGIC
         singleDateRadio.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -360,24 +337,21 @@ public class CreateProject extends javax.swing.JFrame {
         contactNameField.setBorder(BorderFactory.createEmptyBorder(10, 5, 10, 5));
         step1.add(contactNameField, gbc);
 
-        // DESCRIPTION LABEL
         JLabel notesFromClientLabel = new JLabel("Notes From Client:");
         gbc.gridx = 0;
         gbc.gridy = 11;
         step1.add(notesFromClientLabel, gbc);
 
-        // TEXT AREA WITH SCROLLBAR
         notesFromClientArea = new JTextArea(5, 20);
         notesFromClientArea.setLineWrap(true);
         notesFromClientArea.setWrapStyleWord(true);
         JScrollPane scrollPane = new JScrollPane(notesFromClientArea);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
-        // EVENT LISTENER UNTUK BATAS KARAKTER
         notesFromClientArea.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 if (notesFromClientArea.getText().length() >= MAX_CHARACTERS) {
-                    evt.consume(); // Tidak bisa mengetik lebih dari batas
+                    evt.consume(); 
                 }
             }
         });
@@ -470,7 +444,6 @@ public class CreateProject extends javax.swing.JFrame {
             return;
         }
 
-        // Pastikan semua field tidak null
         String projectName = projectNameField.getText() != null ? projectNameField.getText() : "N/A";
         String orderDate = projectNameField.getText() != null ? orderDateField.getText() : "N/A";
         StringBuilder summary = new StringBuilder();
@@ -500,7 +473,6 @@ public class CreateProject extends javax.swing.JFrame {
         gbc.fill = GridBagConstraints.BOTH;
         gbc.weightx = 1.0;
 
-        // Label dan Input Order Detail
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 2;
@@ -522,7 +494,6 @@ public class CreateProject extends javax.swing.JFrame {
         hargaPerUnitField.setToolTipText("Harga Per Unit");
         orderDetailPanel.add(hargaPerUnitField, gbc);
 
-        // Description Area
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.gridwidth = 4;
@@ -541,7 +512,6 @@ public class CreateProject extends javax.swing.JFrame {
 
         gbc.weighty = 0;
 
-        // Input lainnya (Qty, Frek, Periode, Discount)
         gbc.gridwidth = 1;
         gbc.gridx = 0;
         gbc.gridy = 4;
@@ -579,13 +549,11 @@ public class CreateProject extends javax.swing.JFrame {
         discountField.setToolTipText("Discount");
         orderDetailPanel.add(discountField, gbc);
 
-        // Tambahkan form baru ke dalam container
         formContainer.add(orderDetailPanel);
         formContainer.add(Box.createRigidArea(new Dimension(0, 10)));
         formContainer.revalidate();
         formContainer.repaint();
 
-        // Auto-scroll ke bawah saat form bertambah
         JScrollBar vertical = scrollPane.getVerticalScrollBar();
         vertical.setValue(vertical.getMaximum());
 
@@ -599,7 +567,6 @@ public class CreateProject extends javax.swing.JFrame {
         formCount = 0;
     }
 
-    // Fungsi untuk menampilkan GUI
     public void showGUI() {
         JFrame frame = new JFrame("Order Detail Form");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -609,7 +576,6 @@ public class CreateProject extends javax.swing.JFrame {
         frame.setVisible(true);
     }
 
-    // Navigasi antar step
     private void navigate(int direction) {
         System.out.println("Direction: " + direction);
         currentStep += direction;
@@ -625,14 +591,11 @@ public class CreateProject extends javax.swing.JFrame {
         updateButtonState();
     }
 
-    // Atur tampilan tombol
     private void updateButtonState() {
-        backButton.setEnabled(currentStep > 1); // Back aktif jika bukan di Step 1
-//        nextButton.setEnabled(currentStep < 3); // Next aktif jika belum di Step 3
-        resetButton.setVisible(currentStep == 2); // Reset hanya terlihat di Step 2
+        backButton.setEnabled(currentStep > 1); 
+        resetButton.setVisible(currentStep == 2); 
     }
 
-    // Reset form
     private void resetForm() {
         JOptionPane.showMessageDialog(this, "Form Reset!");
         navigate(-1);
@@ -657,39 +620,33 @@ public class CreateProject extends javax.swing.JFrame {
     }
 
     private boolean validateInputs() {
-        // 1. Project Name tidak boleh kosong
         if (projectNameField.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Project Name harus diisi!", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
-        // 2. Order Date harus valid dan dalam format dd/MM/yyyy
         String orderDate = orderDateField.getText().trim();
         if (orderDate.isEmpty() || !isValidDate(orderDate)) {
             JOptionPane.showMessageDialog(this, "Order Date harus dalam format dd/MM/yyyy dan valid!", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
-        // 3. Client Company tidak boleh kosong
         if (clientCompanyNameField.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Client Company harus diisi!", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
-        // 4. Contact Phone harus angka & panjang minimal 10 digit
         String contactPhone = contactPhoneField.getText().trim();
         if (!contactPhone.matches("\\d{10,}")) { // Minimal 10 angka
             JOptionPane.showMessageDialog(this, "Contact Phone harus berupa angka dan minimal 10 digit!", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
-        // 5. Contact Name tidak boleh kosong
         if (contactNameField.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Contact Name harus diisi!", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
-        // 6. Project Manager tidak boleh kosong
         if (projectManagerField.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Project Manager harus diisi!", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
@@ -712,10 +669,10 @@ public class CreateProject extends javax.swing.JFrame {
         sdf.setLenient(false); // Pastikan hanya tanggal valid yang diterima
 
         try {
-            sdf.parse(date); // Coba parsing tanggal
+            sdf.parse(date); //parsing tanggal
             return true;
         } catch (ParseException e) {
-            return false; // Jika parsing gagal, format salah
+            return false; //parsing gagal, format salah
         }
     }
 
@@ -730,10 +687,9 @@ public class CreateProject extends javax.swing.JFrame {
                 JTextField periodeField = null;
                 JTextField discountField = null;
 
-                // Loop untuk mencari komponen dalam panel
                 for (Component field : panel.getComponents()) {
                     if (field instanceof JTextField textField) {
-                        String placeholder = textField.getToolTipText(); // Pastikan tidak `null`
+                        String placeholder = textField.getToolTipText(); // Pastikan no `null`
                         if (placeholder != null) {
                             switch (placeholder) {
                                 case "Nama Item":
@@ -764,7 +720,6 @@ public class CreateProject extends javax.swing.JFrame {
                     }
                 }
 
-                // **Validasi dengan Null Check**  
                 if (namaItemField == null || namaItemField.getText().trim().isEmpty()) {
                     JOptionPane.showMessageDialog(this, "Nama Item harus diisi!", "Error", JOptionPane.ERROR_MESSAGE);
                     return false;
@@ -782,7 +737,6 @@ public class CreateProject extends javax.swing.JFrame {
                     return false;
                 }
 
-                // Lakukan perbaikan serupa untuk qtyField, frekField, dan periodeField
                 if (qtyField == null || qtyField.getText().trim().isEmpty()
                         || !qtyField.getText().matches("\\d+")
                         || (qtyField.getText().trim().length() > 0 && Integer.parseInt(qtyField.getText().trim()) <= 0)) {
@@ -811,7 +765,7 @@ public class CreateProject extends javax.swing.JFrame {
                 }
             }
         }
-        return true; // Jika semua validasi lolos
+        return true;
     }
 
     /**
@@ -947,39 +901,10 @@ public class CreateProject extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtProjectName2ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CreateProject.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CreateProject.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CreateProject.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CreateProject.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+        
         SwingUtilities.invokeLater(() -> new CreateProject().setVisible(true));
-        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new CreateProject().setVisible(true);
-//            }
-//        });
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

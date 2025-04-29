@@ -7,15 +7,8 @@ package macromedia;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
- *
- * @author Helios
- */
 public class PanelAction extends javax.swing.JPanel {
 
-    /**
-     * Creates new form Panel
-     */
     public PanelAction() {
         initComponents();
     }
