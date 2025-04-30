@@ -1,4 +1,3 @@
-
 package macromedia;
 
 import java.awt.BorderLayout;
@@ -66,7 +65,7 @@ public class CreateProject extends javax.swing.JFrame {
     private JTextField discountField;
 
     private JTextArea notesFromClientArea;
-    private static final int MAX_CHARACTERS = 200; 
+    private static final int MAX_CHARACTERS = 200;
 
     private JTextArea descriptionArea;
 
@@ -106,8 +105,8 @@ public class CreateProject extends javax.swing.JFrame {
         JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT)); // Next & Back di kanan
 
         resetButton = new JButton("Reset");
-        resetButton.setVisible(false); 
-        leftPanel.add(resetButton);
+        resetButton.setVisible(false);
+//        leftPanel.add(resetButton);
 
         backButton = new JButton("Back");
         nextButton = new JButton("Next");
@@ -130,8 +129,8 @@ public class CreateProject extends javax.swing.JFrame {
                     return;
                 }
                 if (currentStep == 2) {
-                    if (!validateOrderDetails()) { 
-                        return; 
+                    if (!validateOrderDetails()) {
+                        return;
                     }
                     generateSummary();
                 }
@@ -152,7 +151,7 @@ public class CreateProject extends javax.swing.JFrame {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (currentStep > 1) { 
+                if (currentStep > 1) {
                     currentStep--;
                     System.out.println("Current Step: " + currentStep);
                     cardLayout.show(mainPanel, "Step" + currentStep);
@@ -210,88 +209,85 @@ public class CreateProject extends javax.swing.JFrame {
         orderDateField.setEditable(false);
         step1.add(orderDateField, gbc);
 
-
-        JLabel dateTypeLabel = new JLabel("Date Type:");
-        gbc.gridx = 0;
-        gbc.gridy = 3;
-        step1.add(dateTypeLabel, gbc);
-
-
-        JPanel radioPanel = new JPanel();
-        radioPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-        singleDateRadio = new JRadioButton("Single Date");
-        multipleDateRadio = new JRadioButton("Multiple Dates");
-        dateGroup = new ButtonGroup();
-        dateGroup.add(singleDateRadio);
-        dateGroup.add(multipleDateRadio);
-
-        radioPanel.add(singleDateRadio);
-        radioPanel.add(multipleDateRadio);
-
-        gbc.gridx = 0;
-        gbc.gridy = 4;
-        step1.add(radioPanel, gbc);
-
-
+//        JLabel dateTypeLabel = new JLabel("Date Type:");
+//        gbc.gridx = 0;
+//        gbc.gridy = 3;
+//        step1.add(dateTypeLabel, gbc);
+//
+//
+//        JPanel radioPanel = new JPanel();
+//        radioPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+//        singleDateRadio = new JRadioButton("Single Date");
+//        multipleDateRadio = new JRadioButton("Multiple Dates");
+//        dateGroup = new ButtonGroup();
+//        dateGroup.add(singleDateRadio);
+//        dateGroup.add(multipleDateRadio);
+//
+//        radioPanel.add(singleDateRadio);
+//        radioPanel.add(multipleDateRadio);
+//        gbc.gridx = 0;
+//        gbc.gridy = 4;
+//        step1.add(radioPanel, gbc);
         JLabel eventDateLabel = new JLabel("Event Date:");
-        gbc.gridx = 1;
+        gbc.gridx = 0;
         gbc.gridy = 3;
+        gbc.gridwidth = 1;
         step1.add(eventDateLabel, gbc);
 
         singleDateField = new JTextField(20);
-        gbc.gridx = 1;
+        gbc.gridx = 0;
         gbc.gridy = 4;
+        gbc.gridwidth = 2;
         singleDateField.setColumns(50);
         singleDateField.setBorder(BorderFactory.createEmptyBorder(10, 5, 10, 5));
         step1.add(singleDateField, gbc);
 
-        multipleDatePanel = new JPanel();
-        multipleDatePanel.setLayout(new BoxLayout(multipleDatePanel, BoxLayout.Y_AXIS));
-        multipleDateFields = new ArrayList<>();
-
-        addDateButton = new JButton("Add Another Date");
-        addDateButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JTextField newDateField = new JTextField(20);
-                multipleDateFields.add(newDateField);
-                multipleDatePanel.add(newDateField);
-                multipleDatePanel.revalidate();
-                multipleDatePanel.repaint();
-            }
-        });
-
-        gbc.gridy = 5;
-        step1.add(multipleDatePanel, gbc);
-
-        gbc.gridy = 6;
-        step1.add(addDateButton, gbc);
-        addDateButton.setVisible(false);
-
-        singleDateRadio.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                singleDateField.setVisible(true);
-                multipleDatePanel.setVisible(false);
-                addDateButton.setVisible(false);
-            }
-        });
-
-        multipleDateRadio.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                singleDateField.setVisible(false);
-                multipleDatePanel.setVisible(true);
-                addDateButton.setVisible(true);
-            }
-        });
-
-        singleDateRadio.setSelected(true);
-        multipleDatePanel.setVisible(false);
-
+//        multipleDatePanel = new JPanel();
+//        multipleDatePanel.setLayout(new BoxLayout(multipleDatePanel, BoxLayout.Y_AXIS));
+//        multipleDateFields = new ArrayList<>();
+//
+//        addDateButton = new JButton("Add Another Date");
+//        addDateButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                JTextField newDateField = new JTextField(20);
+//                multipleDateFields.add(newDateField);
+//                multipleDatePanel.add(newDateField);
+//                multipleDatePanel.revalidate();
+//                multipleDatePanel.repaint();
+//            }
+//        });
+//
+//        gbc.gridy = 5;
+//        step1.add(multipleDatePanel, gbc);
+//
+//        gbc.gridy = 6;
+//        step1.add(addDateButton, gbc);
+//        addDateButton.setVisible(false);
+//        singleDateRadio.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                singleDateField.setVisible(true);
+//                multipleDatePanel.setVisible(false);
+//                addDateButton.setVisible(false);
+//            }
+//        });
+//
+//        multipleDateRadio.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                singleDateField.setVisible(false);
+//                multipleDatePanel.setVisible(true);
+//                addDateButton.setVisible(true);
+//            }
+//        });
+//
+//        singleDateRadio.setSelected(true);
+//        multipleDatePanel.setVisible(false);
         JLabel cityOfVanueLabel = new JLabel("City Of Vanue");
         gbc.gridx = 0;
         gbc.gridy = 7;
+        gbc.gridwidth = 1;
         step1.add(cityOfVanueLabel, gbc);
 
         cityOfVanueField = new JTextField(20);
@@ -351,7 +347,7 @@ public class CreateProject extends javax.swing.JFrame {
         notesFromClientArea.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 if (notesFromClientArea.getText().length() >= MAX_CHARACTERS) {
-                    evt.consume(); 
+                    evt.consume();
                 }
             }
         });
@@ -592,8 +588,8 @@ public class CreateProject extends javax.swing.JFrame {
     }
 
     private void updateButtonState() {
-        backButton.setEnabled(currentStep > 1); 
-        resetButton.setVisible(currentStep == 2); 
+        backButton.setEnabled(currentStep > 1);
+        resetButton.setVisible(currentStep == 2);
     }
 
     private void resetForm() {
@@ -652,13 +648,10 @@ public class CreateProject extends javax.swing.JFrame {
             return false;
         }
 
-        // 7. Event Date harus valid dalam format dd/MM/yyyy
-        if (singleDateRadio.isSelected()) {
-            String eventDate = singleDateField.getText().trim();
-            if (eventDate.isEmpty() || !isValidDate(eventDate)) {
-                JOptionPane.showMessageDialog(this, "Event Date harus dalam format dd/MM/yyyy dan valid!", "Error", JOptionPane.ERROR_MESSAGE);
-                return false;
-            }
+        String eventDate = singleDateField.getText().trim();
+        if (eventDate.isEmpty() || !isValidDate(eventDate)) {
+            JOptionPane.showMessageDialog(this, "Event Date harus dalam format dd/MM/yyyy dan valid!", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
         }
 
         return true; // Jika semua validasi lolos
@@ -902,9 +895,9 @@ public class CreateProject extends javax.swing.JFrame {
     }//GEN-LAST:event_txtProjectName2ActionPerformed
 
     public static void main(String args[]) {
-        
+
         SwingUtilities.invokeLater(() -> new CreateProject().setVisible(true));
-        
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
