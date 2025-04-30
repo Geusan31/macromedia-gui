@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package macromedia;
 
 import java.awt.Graphics;
@@ -10,10 +7,6 @@ import java.awt.event.MouseEvent;
 import javax.swing.JButton;
 import javax.swing.border.EmptyBorder;
 
-/**
- *
- * @author Helios
- */
 public class ActionButton extends JButton{
     
     private boolean mousePress;
@@ -30,8 +23,6 @@ public class ActionButton extends JButton{
             public void mouseReleased(MouseEvent e) {
                 mousePress = false;
             }
-            
-            
             
         });
     }   
