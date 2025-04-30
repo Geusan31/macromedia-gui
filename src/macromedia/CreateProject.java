@@ -56,13 +56,13 @@ public class CreateProject extends javax.swing.JFrame {
 
     private int currentStep = 1;
 
-    private JTextField namaItemField;
-    private JTextField hargaPerUnitField;
-    private JTextField deskripsiField;
-    private JTextField qtyField;
-    private JTextField frekField;
-    private JTextField periodeField;
-    private JTextField discountField;
+    private JTextField namaItemField =  new JTextField(15);
+    private JTextField hargaPerUnitField =  new JTextField(15);
+    private JTextField deskripsiField = new JTextField(15);
+    private JTextField qtyField  = new JTextField(15);
+    private JTextField frekField  = new JTextField(15);
+    private JTextField periodeField = new JTextField(15);
+    private JTextField discountField = new JTextField(15);
 
     private JTextArea notesFromClientArea;
     private static final int MAX_CHARACTERS = 200;
@@ -147,7 +147,7 @@ public class CreateProject extends javax.swing.JFrame {
                 }
             }
         });
-
+ 
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -541,7 +541,7 @@ public class CreateProject extends javax.swing.JFrame {
         orderDetailPanel.add(new JLabel("Discount"), gbc);
 
         gbc.gridy = 5;
-        JTextField discountField = new JTextField(15);
+//        JTextField discountField = new JTextField(15);
         discountField.setToolTipText("Discount");
         orderDetailPanel.add(discountField, gbc);
 
@@ -603,7 +603,8 @@ public class CreateProject extends javax.swing.JFrame {
             projectNameField.getText(),
             clientCompanyNameField.getText(),
             singleDateField.getText(),
-            "Pending" // Default status
+            "Pending",
+            discountField.getText()
         };
 
         projectList.add(projectData);

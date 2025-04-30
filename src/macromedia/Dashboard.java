@@ -1,4 +1,3 @@
-
 package macromedia;
 
 import java.awt.Component;
@@ -17,7 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
-
+import java.util.Arrays;
 
 public class Dashboard extends javax.swing.JFrame {
 
@@ -33,14 +32,17 @@ public class Dashboard extends javax.swing.JFrame {
 
         for (int i = 0; i < CreateProject.projectList.size(); i++) {
             String[] project = CreateProject.projectList.get(i);
-            model.addRow(new Object[]{
-                project[0],
-                project[1],
-                project[2],
-                project[3],
-                project[4],
-                "Edit/Delete"
-            });
+            if(project.length >=5) {
+                System.out.println("Project " + i + ": " + Arrays.toString(project));
+                model.addRow(new Object[]{
+                    project[0],
+                    project[1],
+                    project[2],
+                    project[3],
+                    project[4],
+                    "Edit/Delete"
+                });
+            }
         }
 
         TableActionEvent event = new TableActionEvent() {
@@ -52,7 +54,7 @@ public class Dashboard extends javax.swing.JFrame {
             @Override
             public void onDelete(int row) {
                 System.out.println("Delete: " + row);
-                if(jTable2.isEditing()) {
+                if (jTable2.isEditing()) {
                     jTable2.getCellEditor().stopCellEditing();
                 }
                 model.removeRow(row);
@@ -69,7 +71,7 @@ public class Dashboard extends javax.swing.JFrame {
     }
 
     class ButtonRenderer extends JPanel implements TableCellRenderer {
-
+            
         private final JButton editButton = new JButton();
         private final JButton deleteButton = new JButton();
 
