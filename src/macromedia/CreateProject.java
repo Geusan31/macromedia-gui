@@ -39,37 +39,31 @@ import javax.swing.JViewport;
 public class CreateProject extends javax.swing.JFrame {
 
     private CardLayout cardLayout;
-    private JTextField projectNameField;
-    private JTextField orderDateField;
-    private JRadioButton singleDateRadio;
-    private JRadioButton multipleDateRadio;
-    private ButtonGroup dateGroup;
-    private JTextField singleDateField;
-    private JPanel multipleDatePanel;
-    private JButton addDateButton;
-    private ArrayList<JTextField> multipleDateFields;
-    private JTextField cityOfVanueField;
-    private JTextField clientCompanyNameField;
-    private JTextField contactPhoneField;
-    private JTextField contactNameField;
-    private JTextField projectManagerField;
+    private JTextField projectNameField = new JTextField(15);
+    private JTextField orderDateField = new JTextField(15);
+    private JTextField singleDateField = new JTextField(15);
+    private JTextField cityOfVanueField = new JTextField(15);
+    private JTextField clientCompanyNameField = new JTextField(15);
+    private JTextField contactPhoneField = new JTextField(15);
+    private JTextField contactNameField = new JTextField(15);
+    private JTextField projectManagerField = new JTextField(15);
 
     private int currentStep = 1;
 
-    private JTextField namaItemField =  new JTextField(15);
-    private JTextField hargaPerUnitField =  new JTextField(15);
+    private JTextField namaItemField = new JTextField(15);
+    private JTextField hargaPerUnitField = new JTextField(15);
     private JTextField deskripsiField = new JTextField(15);
-    private JTextField qtyField  = new JTextField(15);
-    private JTextField frekField  = new JTextField(15);
+    private JTextField qtyField = new JTextField(15);
+    private JTextField frekField = new JTextField(15);
     private JTextField periodeField = new JTextField(15);
     private JTextField discountField = new JTextField(15);
 
     private JTextArea notesFromClientArea;
     private static final int MAX_CHARACTERS = 200;
 
-    private JTextArea descriptionArea;
+    private JTextArea descriptionArea = new JTextArea(3, 20);
 
-    private JTextArea summaryArea;
+    private JTextArea summaryArea = new JTextArea(15, 50);
 
     private JButton nextButton;
     private JButton backButton;
@@ -80,6 +74,7 @@ public class CreateProject extends javax.swing.JFrame {
     private int formCount = 0;
 
     public static List<String[]> projectList = new ArrayList<>();
+    public static List<String[]> EditprojectList = new ArrayList<>();
 
     public CreateProject() {
         setTitle("Multi-Step Form");
@@ -147,7 +142,7 @@ public class CreateProject extends javax.swing.JFrame {
                 }
             }
         });
- 
+
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -193,7 +188,6 @@ public class CreateProject extends javax.swing.JFrame {
         step1.add(new JLabel("Project Name:"), gbc);
 
         gbc.gridy = 2;
-        projectNameField = new JTextField(15);
         projectNameField.setColumns(50);
         projectNameField.setBorder(BorderFactory.createEmptyBorder(10, 5, 10, 5));
         step1.add(projectNameField, gbc);
@@ -203,7 +197,6 @@ public class CreateProject extends javax.swing.JFrame {
         step1.add(new JLabel("Order Date:"), gbc);
 
         gbc.gridy = 2;
-        orderDateField = new JTextField(15);
         orderDateField.setColumns(50);
         orderDateField.setBorder(BorderFactory.createEmptyBorder(10, 5, 10, 5));
         orderDateField.setEditable(false);
@@ -234,7 +227,6 @@ public class CreateProject extends javax.swing.JFrame {
         gbc.gridwidth = 1;
         step1.add(eventDateLabel, gbc);
 
-        singleDateField = new JTextField(20);
         gbc.gridx = 0;
         gbc.gridy = 4;
         gbc.gridwidth = 2;
@@ -290,7 +282,6 @@ public class CreateProject extends javax.swing.JFrame {
         gbc.gridwidth = 1;
         step1.add(cityOfVanueLabel, gbc);
 
-        cityOfVanueField = new JTextField(20);
         gbc.gridx = 0;
         gbc.gridy = 8;
         cityOfVanueField.setColumns(50);
@@ -302,7 +293,6 @@ public class CreateProject extends javax.swing.JFrame {
         gbc.gridy = 7;
         step1.add(clientCompanyName, gbc);
 
-        clientCompanyNameField = new JTextField(20);
         gbc.gridx = 1;
         gbc.gridy = 8;
         clientCompanyNameField.setColumns(50);
@@ -314,7 +304,6 @@ public class CreateProject extends javax.swing.JFrame {
         gbc.gridy = 9;
         step1.add(contactPhone, gbc);
 
-        contactPhoneField = new JTextField(20);
         gbc.gridx = 0;
         gbc.gridy = 10;
         contactPhoneField.setColumns(50);
@@ -421,7 +410,7 @@ public class CreateProject extends javax.swing.JFrame {
     private JPanel createStep3() {
         JPanel step3 = new JPanel(new BorderLayout());
 
-        summaryArea = new JTextArea(15, 50);
+//        summaryArea = new JTextArea(15, 50);
         summaryArea.setEditable(false);
         summaryArea.setLineWrap(true);
         summaryArea.setWrapStyleWord(true);
@@ -475,7 +464,6 @@ public class CreateProject extends javax.swing.JFrame {
         orderDetailPanel.add(new JLabel("Order Detail:"), gbc);
 
         gbc.gridy = 1;
-        JTextField namaItemField = new JTextField(15);
         namaItemField.setToolTipText("Nama Item");
         orderDetailPanel.add(namaItemField, gbc);
 
@@ -486,7 +474,6 @@ public class CreateProject extends javax.swing.JFrame {
 
         gbc.gridx = 2;
         gbc.gridy = 1;
-        JTextField hargaPerUnitField = new JTextField(15);
         hargaPerUnitField.setToolTipText("Harga Per Unit");
         orderDetailPanel.add(hargaPerUnitField, gbc);
 
@@ -495,7 +482,7 @@ public class CreateProject extends javax.swing.JFrame {
         gbc.gridwidth = 4;
         orderDetailPanel.add(new JLabel("Description per Unit:"), gbc);
 
-        JTextArea descriptionArea = new JTextArea(3, 20);
+//        JTextArea descriptionArea = new JTextArea(3, 20);
         descriptionArea.setLineWrap(true);
         descriptionArea.setWrapStyleWord(true);
         JScrollPane scrollPane = new JScrollPane(descriptionArea);
@@ -514,7 +501,6 @@ public class CreateProject extends javax.swing.JFrame {
         orderDetailPanel.add(new JLabel("Qty"), gbc);
 
         gbc.gridy = 5;
-        JTextField qtyField = new JTextField(15);
         qtyField.setToolTipText("Qty");
         orderDetailPanel.add(qtyField, gbc);
 
@@ -523,7 +509,6 @@ public class CreateProject extends javax.swing.JFrame {
         orderDetailPanel.add(new JLabel("Frek"), gbc);
 
         gbc.gridy = 5;
-        JTextField frekField = new JTextField(15);
         frekField.setToolTipText("Frek");
         orderDetailPanel.add(frekField, gbc);
 
@@ -532,7 +517,6 @@ public class CreateProject extends javax.swing.JFrame {
         orderDetailPanel.add(new JLabel("Periode"), gbc);
 
         gbc.gridy = 5;
-        JTextField periodeField = new JTextField(15);
         periodeField.setToolTipText("Periode");
         orderDetailPanel.add(periodeField, gbc);
 
@@ -572,29 +556,9 @@ public class CreateProject extends javax.swing.JFrame {
         frame.setVisible(true);
     }
 
-    private void navigate(int direction) {
-        System.out.println("Direction: " + direction);
-        currentStep += direction;
-        System.out.println("Current Step Navigate: " + direction);
-
-        if (currentStep > 1) {
-            currentStep = 1;
-        } else if (currentStep < 3) {
-            currentStep = 3;
-        }
-
-        cardLayout.show(mainPanel, "Step" + currentStep);
-        updateButtonState();
-    }
-
     private void updateButtonState() {
         backButton.setEnabled(currentStep > 1);
         resetButton.setVisible(currentStep == 2);
-    }
-
-    private void resetForm() {
-        JOptionPane.showMessageDialog(this, "Form Reset!");
-        navigate(-1);
     }
 
     private void saveProject() {
@@ -603,11 +567,16 @@ public class CreateProject extends javax.swing.JFrame {
             projectNameField.getText(),
             clientCompanyNameField.getText(),
             singleDateField.getText(),
-            "Pending",
-            discountField.getText()
+            "Pending"
         };
 
+//        String[] projectData = {
+//            projectNameField.getText(),
+//            orderDateField.getText(),
+//        };
+
         projectList.add(projectData);
+        EditprojectList.add(projectData);
         JOptionPane.showMessageDialog(this, "Project berhasil disimpan!");
 
         Dashboard dashboard = new Dashboard();

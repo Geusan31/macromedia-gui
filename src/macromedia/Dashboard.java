@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import javax.swing.DefaultCellEditor;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -17,8 +18,12 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import java.util.Arrays;
+import java.util.List;
 
 public class Dashboard extends javax.swing.JFrame {
+    
+    
+    public static List<String[]> projectList = new ArrayList<>();
 
     public Dashboard() {
         initComponents();
@@ -29,9 +34,19 @@ public class Dashboard extends javax.swing.JFrame {
     public void loadProjects() {
         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
         model.setRowCount(0); // Hapus data lama agar tidak duplikat
+        
+        String[] projectData = {
+            "03/12/2025",
+            "ahsdskadhks",
+            "SAdsajasdak",
+            "01/12/2534",
+            "Pending"
+        };
+        
+        projectList.add(projectData);
 
-        for (int i = 0; i < CreateProject.projectList.size(); i++) {
-            String[] project = CreateProject.projectList.get(i);
+        for (int i = 0; i < projectList.size(); i++) {
+            String[] project = projectList.get(i);
             if(project.length >=5) {
                 System.out.println("Project " + i + ": " + Arrays.toString(project));
                 model.addRow(new Object[]{
@@ -68,101 +83,7 @@ public class Dashboard extends javax.swing.JFrame {
 
         jTable2.getColumn("Action").setCellRenderer(new TableActionCellRender());
         jTable2.getColumn("Action").setCellEditor(new TableActionCellEditor(event));
-    }
-
-    class ButtonRenderer extends JPanel implements TableCellRenderer {
-            
-        private final JButton editButton = new JButton();
-        private final JButton deleteButton = new JButton();
-
-        public ButtonRenderer() {
-            setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
-
-            editButton.setText("EDIT");
-            editButton.setPreferredSize(new Dimension(20, 40));
-            editButton.setBorderPainted(false);
-            editButton.setContentAreaFilled(false);
-
-            deleteButton.setText("DELETE");
-            deleteButton.setPreferredSize(new Dimension(20, 40));
-            deleteButton.setBorderPainted(false);
-            deleteButton.setContentAreaFilled(false);
-
-            add(editButton);
-            add(deleteButton);
-        }
-
-        @Override
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            return this;
-        }
-    }
-
-    class ButtonEditor extends DefaultCellEditor {
-
-        protected JPanel panel = new JPanel();
-        protected JButton editButton = new JButton();
-        protected JButton deleteButton = new JButton();
-        private int selectedRow;
-        private TableActionEvent event;
-
-        public ButtonEditor(JCheckBox checkBox, TableActionEvent event) {
-            super(checkBox);
-            this.event = event;
-            panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
-
-            editButton.setText("EDIT");
-            editButton.setPreferredSize(new Dimension(40, 30));
-            editButton.setBorderPainted(false);
-            editButton.setContentAreaFilled(false);
-            editButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    fireEditingStopped();
-                    event.onEdit(selectedRow);
-                }
-            });
-
-            deleteButton.setText("DELETE");
-            deleteButton.setPreferredSize(new Dimension(40, 30));
-            deleteButton.setBorderPainted(false);
-            deleteButton.setContentAreaFilled(false);
-            deleteButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    fireEditingStopped();
-                    event.onDelete(selectedRow);
-                }
-            });
-
-            panel.add(editButton);
-            panel.add(deleteButton);
-        }
-
-        @Override
-        public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
-            selectedRow = row;
-            return panel;
-        }
-
-        @Override
-        public Object getCellEditorValue() {
-            return "";
-        }
-
-        @Override
-        public boolean isCellEditable(java.util.EventObject e) {
-            if (e instanceof MouseEvent) {
-                return ((MouseEvent) e).getID() == MouseEvent.MOUSE_CLICKED;
-            }
-            return false;
-        }
-
-        @Override
-        public boolean shouldSelectCell(java.util.EventObject anEvent) {
-            return true;
-        }
-    }
+    }   
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -189,7 +110,7 @@ public class Dashboard extends javax.swing.JFrame {
         jTable2.setForeground(new java.awt.Color(51, 51, 51));
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, "", ""}
+                {"", "", "", "", "", ""}
             },
             new String [] {
                 "Order Date", "Nama project", "Client Company", "Event Date", "Status", "Action"
