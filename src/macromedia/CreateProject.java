@@ -574,7 +574,7 @@ public class CreateProject extends javax.swing.JFrame {
 //            projectNameField.getText(),
 //            orderDateField.getText(),
 //        };
-
+            
         projectList.add(projectData);
         EditprojectList.add(projectData);
         JOptionPane.showMessageDialog(this, "Project berhasil disimpan!");
