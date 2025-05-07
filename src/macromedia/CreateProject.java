@@ -800,6 +800,7 @@ public class CreateProject extends javax.swing.JFrame {
         return true; // Jika semua validasi lolos
     }
     
+    
     private boolean isValidDate(String date) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         sdf.setLenient(false); // Pastikan hanya tanggal valid yang diterima
