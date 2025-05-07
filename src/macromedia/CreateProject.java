@@ -38,6 +38,7 @@ import javax.swing.JViewport;
 
 public class CreateProject extends javax.swing.JFrame {
 
+    private int editIndex = -1; // -1 indicates not in edit mode
     private CardLayout cardLayout;
     private JTextField projectNameField = new JTextField(15);
     private JTextField orderDateField = new JTextField(15);
@@ -76,6 +77,8 @@ public class CreateProject extends javax.swing.JFrame {
     public static List<String[]> projectList = new ArrayList<>();
     public static List<String[]> EditprojectList = new ArrayList<>();
 
+    public static List<List<String>> orderDetailList = new ArrayList<>();
+
     public CreateProject() {
         setTitle("Multi-Step Form");
         setSize(1000, 600);
@@ -96,12 +99,12 @@ public class CreateProject extends javax.swing.JFrame {
 
         JPanel buttonPanel = new JPanel(new BorderLayout());
 
-        JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));  // Reset di kiri
+        JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT)); // Reset di kiri
         JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT)); // Next & Back di kanan
 
         resetButton = new JButton("Reset");
         resetButton.setVisible(false);
-//        leftPanel.add(resetButton);
+        // leftPanel.add(resetButton);
 
         backButton = new JButton("Back");
         nextButton = new JButton("Next");
@@ -202,25 +205,25 @@ public class CreateProject extends javax.swing.JFrame {
         orderDateField.setEditable(false);
         step1.add(orderDateField, gbc);
 
-//        JLabel dateTypeLabel = new JLabel("Date Type:");
-//        gbc.gridx = 0;
-//        gbc.gridy = 3;
-//        step1.add(dateTypeLabel, gbc);
-//
-//
-//        JPanel radioPanel = new JPanel();
-//        radioPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-//        singleDateRadio = new JRadioButton("Single Date");
-//        multipleDateRadio = new JRadioButton("Multiple Dates");
-//        dateGroup = new ButtonGroup();
-//        dateGroup.add(singleDateRadio);
-//        dateGroup.add(multipleDateRadio);
-//
-//        radioPanel.add(singleDateRadio);
-//        radioPanel.add(multipleDateRadio);
-//        gbc.gridx = 0;
-//        gbc.gridy = 4;
-//        step1.add(radioPanel, gbc);
+        // JLabel dateTypeLabel = new JLabel("Date Type:");
+        // gbc.gridx = 0;
+        // gbc.gridy = 3;
+        // step1.add(dateTypeLabel, gbc);
+        //
+        //
+        // JPanel radioPanel = new JPanel();
+        // radioPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        // singleDateRadio = new JRadioButton("Single Date");
+        // multipleDateRadio = new JRadioButton("Multiple Dates");
+        // dateGroup = new ButtonGroup();
+        // dateGroup.add(singleDateRadio);
+        // dateGroup.add(multipleDateRadio);
+        //
+        // radioPanel.add(singleDateRadio);
+        // radioPanel.add(multipleDateRadio);
+        // gbc.gridx = 0;
+        // gbc.gridy = 4;
+        // step1.add(radioPanel, gbc);
         JLabel eventDateLabel = new JLabel("Event Date:");
         gbc.gridx = 0;
         gbc.gridy = 3;
@@ -234,48 +237,49 @@ public class CreateProject extends javax.swing.JFrame {
         singleDateField.setBorder(BorderFactory.createEmptyBorder(10, 5, 10, 5));
         step1.add(singleDateField, gbc);
 
-//        multipleDatePanel = new JPanel();
-//        multipleDatePanel.setLayout(new BoxLayout(multipleDatePanel, BoxLayout.Y_AXIS));
-//        multipleDateFields = new ArrayList<>();
-//
-//        addDateButton = new JButton("Add Another Date");
-//        addDateButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                JTextField newDateField = new JTextField(20);
-//                multipleDateFields.add(newDateField);
-//                multipleDatePanel.add(newDateField);
-//                multipleDatePanel.revalidate();
-//                multipleDatePanel.repaint();
-//            }
-//        });
-//
-//        gbc.gridy = 5;
-//        step1.add(multipleDatePanel, gbc);
-//
-//        gbc.gridy = 6;
-//        step1.add(addDateButton, gbc);
-//        addDateButton.setVisible(false);
-//        singleDateRadio.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                singleDateField.setVisible(true);
-//                multipleDatePanel.setVisible(false);
-//                addDateButton.setVisible(false);
-//            }
-//        });
-//
-//        multipleDateRadio.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                singleDateField.setVisible(false);
-//                multipleDatePanel.setVisible(true);
-//                addDateButton.setVisible(true);
-//            }
-//        });
-//
-//        singleDateRadio.setSelected(true);
-//        multipleDatePanel.setVisible(false);
+        // multipleDatePanel = new JPanel();
+        // multipleDatePanel.setLayout(new BoxLayout(multipleDatePanel,
+        // BoxLayout.Y_AXIS));
+        // multipleDateFields = new ArrayList<>();
+        //
+        // addDateButton = new JButton("Add Another Date");
+        // addDateButton.addActionListener(new ActionListener() {
+        // @Override
+        // public void actionPerformed(ActionEvent e) {
+        // JTextField newDateField = new JTextField(20);
+        // multipleDateFields.add(newDateField);
+        // multipleDatePanel.add(newDateField);
+        // multipleDatePanel.revalidate();
+        // multipleDatePanel.repaint();
+        // }
+        // });
+        //
+        // gbc.gridy = 5;
+        // step1.add(multipleDatePanel, gbc);
+        //
+        // gbc.gridy = 6;
+        // step1.add(addDateButton, gbc);
+        // addDateButton.setVisible(false);
+        // singleDateRadio.addActionListener(new ActionListener() {
+        // @Override
+        // public void actionPerformed(ActionEvent e) {
+        // singleDateField.setVisible(true);
+        // multipleDatePanel.setVisible(false);
+        // addDateButton.setVisible(false);
+        // }
+        // });
+        //
+        // multipleDateRadio.addActionListener(new ActionListener() {
+        // @Override
+        // public void actionPerformed(ActionEvent e) {
+        // singleDateField.setVisible(false);
+        // multipleDatePanel.setVisible(true);
+        // addDateButton.setVisible(true);
+        // }
+        // });
+        //
+        // singleDateRadio.setSelected(true);
+        // multipleDatePanel.setVisible(false);
         JLabel cityOfVanueLabel = new JLabel("City Of Vanue");
         gbc.gridx = 0;
         gbc.gridy = 7;
@@ -376,30 +380,29 @@ public class CreateProject extends javax.swing.JFrame {
         scrollPane = new JScrollPane(formContainer);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setPreferredSize(new Dimension(600, 300));
+//
+//        JLabel addLabel = new JLabel("<html><u>Tambah Order Detail</u></html>");
+//        addLabel.setForeground(Color.BLUE);
+//        addLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+//        addLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+//            public void mouseClicked(java.awt.event.MouseEvent evt) {
+//                tambahOrderDetail();
+//            }
+//        });
 
-        JLabel addLabel = new JLabel("<html><u>Tambah Order Detail</u></html>");
-        addLabel.setForeground(Color.BLUE);
-        addLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        addLabel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tambahOrderDetail();
-            }
-        });
-
-        JButton resetButton = new JButton("Reset");
-        resetButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                resetOrderDetails();
-            }
-        });
-
+//        JButton resetButton = new JButton("Reset");
+//        resetButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                resetOrderDetails();
+//            }
+//        });
         JButton nextButton = new JButton("Next");
         nextButton.addActionListener(e -> cardLayout.next(mainPanel));
 
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        buttonPanel.add(addLabel);
-        buttonPanel.add(resetButton);
+//        buttonPanel.add(addLabel);
+//        buttonPanel.add(resetButton);
 
         step2.add(buttonPanel, BorderLayout.NORTH);
         step2.add(scrollPane, BorderLayout.CENTER);
@@ -410,7 +413,7 @@ public class CreateProject extends javax.swing.JFrame {
     private JPanel createStep3() {
         JPanel step3 = new JPanel(new BorderLayout());
 
-//        summaryArea = new JTextArea(15, 50);
+        // summaryArea = new JTextArea(15, 50);
         summaryArea.setEditable(false);
         summaryArea.setLineWrap(true);
         summaryArea.setWrapStyleWord(true);
@@ -424,31 +427,97 @@ public class CreateProject extends javax.swing.JFrame {
     }
 
     private void generateSummary() {
-        if (projectNameField == null) {
-            System.err.println("Error: txtProjectName belum diinisialisasi!");
+        // --- Mengambil data field utama proyek ---
+        // Pengecekan inisialisasi field utama
+        // Tambahkan pengecekan untuk semua field utama yang Anda gunakan
+        if (projectNameField == null || orderDateField == null || singleDateField == null
+                || cityOfVanueField == null || clientCompanyNameField == null || contactPhoneField == null
+                || contactNameField == null || notesFromClientArea == null || summaryArea == null) {
+            System.err.println("Error: Beberapa field utama belum diinisialisasi!");
+            // Tampilkan pesan error ke pengguna
+            JOptionPane.showMessageDialog(null, "Error: Form belum lengkap atau field belum diinisialisasi.", "Initialization Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
+        // Mengambil data field utama dengan penanganan null
         String projectName = projectNameField.getText() != null ? projectNameField.getText() : "N/A";
-        String orderDate = projectNameField.getText() != null ? orderDateField.getText() : "N/A";
-        StringBuilder summary = new StringBuilder();
-        summary.append("Project Name: ").append(projectNameField.getText()).append("\n");
-        summary.append("Order Details:\n");
+        String orderDate = orderDateField.getText() != null ? orderDateField.getText() : "N/A"; // Diperbaiki
+        String singleDate = singleDateField.getText() != null ? singleDateField.getText() : "N/A";
+        String city = cityOfVanueField.getText() != null ? cityOfVanueField.getText() : "N/A";
+        String clientCompanyName = clientCompanyNameField.getText() != null ? clientCompanyNameField.getText() : "N/A";
+        String contactPhone = contactPhoneField.getText() != null ? contactPhoneField.getText() : "N/A";
+        String contactName = contactNameField.getText() != null ? contactNameField.getText() : "N/A";
+        String notesFromClient = notesFromClientArea.getText() != null ? notesFromClientArea.getText() : "N/A";
 
-        for (Component comp : formContainer.getComponents()) {
-            if (comp instanceof JPanel panel) {
-                for (Component field : panel.getComponents()) {
-                    if (field instanceof JTextField textField) {
-                        summary.append(textField.getText()).append("\n");
-                    } else if (field instanceof JScrollPane scrollPane) {
-                        JTextArea textArea = (JTextArea) ((JViewport) scrollPane.getComponent(0)).getView();
-                        summary.append(textArea.getText()).append("\n");
-                    }
+        StringBuilder summary = new StringBuilder();
+
+        // --- Bagian Summary Proyek Utama (Rapi) ---
+        summary.append("============= Ringkasan Proyek =============\n\n");
+        summary.append("Nama Proyek          : ").append(projectName).append("\n");
+        summary.append("Tanggal Order        : ").append(orderDate).append("\n");
+        summary.append("Tanggal Single       : ").append(singleDate).append("\n");
+        summary.append("Kota Venue           : ").append(city).append("\n\n");
+
+        summary.append("Informasi Klien      :\n");
+        summary.append("Perusahaan           : ").append(clientCompanyName).append("\n");
+        summary.append("Nama Kontak          : ").append(contactName).append("\n");
+        summary.append("Telepon Kontak       : ").append(contactPhone).append("\n\n");
+
+        summary.append("Catatan dari Klien   :\n").append(notesFromClient).append("\n");
+        summary.append("===========================================\n\n");
+
+        // --- Bagian Detail Order (Menggunakan List<List<String>>) ---
+        summary.append("============= Detail Order ============\n\n");
+
+        // Mengakses List<List<String>> yang ada di kelas CreateProject
+        List<List<String>> detailList = CreateProject.orderDetailList; // Ambil referensi listnya
+
+        if (detailList == null || detailList.isEmpty()) {
+            summary.append("(Tidak ada order detail yang ditambahkan)\n");
+        } else {
+            // Loop MELALUI LIST<LIST<STRING>>
+            for (int i = 0; i < detailList.size(); i++) {
+                List<String> detailData = detailList.get(i); // Ambil List<String> untuk detail ke-i
+
+                // Pastikan inner list memiliki jumlah elemen yang diharapkan (minimal 7)
+                final int EXPECTED_FIELD_COUNT = 7; // Sesuaikan jika jumlah field berbeda
+                if (detailData != null && detailData.size() >= EXPECTED_FIELD_COUNT) {
+                    // Ambil data dari List<String> menggunakan index
+                    String namaItem = detailData.get(0) != null ? detailData.get(0) : "N/A";
+                    String harga = detailData.get(1) != null ? detailData.get(1) : "N/A";
+                    String description = detailData.get(2) != null ? detailData.get(2) : "N/A";
+                    String qty = detailData.get(3) != null ? detailData.get(3) : "N/A";
+                    String frek = detailData.get(4) != null ? detailData.get(4) : "N/A";
+                    String periode = detailData.get(5) != null ? detailData.get(5) : "N/A";
+                    String discount = detailData.get(6) != null ? detailData.get(6) : "N/A";
+
+                    // Format data detail dengan label yang jelas
+                    summary.append("--- Detail Ke-").append(i + 1).append(" ---\n");
+                    summary.append("Nama Item      : ").append(namaItem).append("\n");
+                    summary.append("Harga/Unit     : ").append(harga).append("\n");
+                    summary.append("Quantity       : ").append(qty).append("\n");
+                    summary.append("Frekuensi      : ").append(frek).append("\n");
+                    summary.append("Periode        : ").append(periode).append("\n");
+                    summary.append("Discount       : ").append(discount).append("\n");
+                    summary.append("Deskripsi      :\n").append(description).append("\n"); // Deskripsi di baris baru
+                    summary.append("---------------------------\n\n"); // Pemisah antar detail
+                } else {
+                    // Tangani kasus jika data mungkin tidak lengkap untuk entri ini
+                    summary.append("--- Detail Ke-").append(i + 1).append(" (Data Tidak Lengkap/Format Salah) ---\n");
+                    summary.append("Data Mentah: ").append(detailData).append("\n"); // Tampilkan data mentah untuk debugging
+                    summary.append("---------------------------\n\n");
+                    System.err.println("Warning: Data detail pada index " + i + " tidak lengkap atau formatnya salah.");
                 }
-                summary.append("\n---------------------------\n");
             }
         }
+
+        summary.append("============= Akhir Ringkasan =============");
+
+        // --- Menampilkan Summary ---
         summaryArea.setText(summary.toString());
+
+        // Optional: Mengatur kursor kembali ke awal teks area summary
+        summaryArea.setCaretPosition(0);
     }
 
     private void tambahOrderDetail() {
@@ -482,7 +551,7 @@ public class CreateProject extends javax.swing.JFrame {
         gbc.gridwidth = 4;
         orderDetailPanel.add(new JLabel("Description per Unit:"), gbc);
 
-//        JTextArea descriptionArea = new JTextArea(3, 20);
+        // JTextArea descriptionArea = new JTextArea(3, 20);
         descriptionArea.setLineWrap(true);
         descriptionArea.setWrapStyleWord(true);
         JScrollPane scrollPane = new JScrollPane(descriptionArea);
@@ -525,7 +594,7 @@ public class CreateProject extends javax.swing.JFrame {
         orderDetailPanel.add(new JLabel("Discount"), gbc);
 
         gbc.gridy = 5;
-//        JTextField discountField = new JTextField(15);
+        // JTextField discountField = new JTextField(15);
         discountField.setToolTipText("Discount");
         orderDetailPanel.add(discountField, gbc);
 
@@ -561,28 +630,114 @@ public class CreateProject extends javax.swing.JFrame {
         resetButton.setVisible(currentStep == 2);
     }
 
+    public void editProject(int index) {
+        this.editIndex = index;
+        if (index < 0 || index >= EditprojectList.size()) {
+            System.err.println("Index project tidak valid");
+            return;
+        }
+
+        // Ambil data utama
+        String[] data = EditprojectList.get(index);
+
+        // Isi ke field
+        projectNameField.setText(data[0]);
+        orderDateField.setText(data[1]);
+        singleDateField.setText(data[2]);
+        cityOfVanueField.setText(data[3]);
+        clientCompanyNameField.setText(data[4]);
+        contactPhoneField.setText(data[5]);
+        contactNameField.setText(data[6]);
+        notesFromClientArea.setText(data[7]);
+        projectManagerField.setText(data[8]);
+
+        // Set step langsung ke step 1
+        currentStep = 1;
+        cardLayout.show(mainPanel, "Step1");
+        updateButtonState();
+
+        // Hapus order detail form sebelumnya (jika ada)
+        formContainer.removeAll();
+
+        // Ambil order detail
+        if (index < orderDetailList.size()) {
+            List<String> detail = orderDetailList.get(index);
+
+            // Order detail satuan panel
+            int chunkSize = 7; // sesuai jumlah field per order
+            for (int i = 0; i < detail.size(); i += chunkSize) {
+                tambahOrderDetail(); // buat panel baru
+
+                // Ambil field dalam panel terakhir
+                JPanel panel = (JPanel) formContainer.getComponent(formContainer.getComponentCount() - 2);
+                int fieldIndex = 0;
+
+                for (Component c : panel.getComponents()) {
+                    if (c instanceof JTextField textField) {
+                        textField.setText(detail.get(i + fieldIndex));
+                        fieldIndex++;
+                    } else if (c instanceof JScrollPane scrollPane) {
+                        Component view = ((JViewport) scrollPane.getComponent(0)).getView();
+                        if (view instanceof JTextArea textArea) {
+                            textArea.setText(detail.get(i + fieldIndex));
+                            fieldIndex++;
+                        }
+                    }
+                }
+            }
+
+            formContainer.revalidate();
+            formContainer.repaint();
+        }
+
+        // Ubah tombol Next menjadi Submit langsung kalau ingin
+        nextButton.setText("Next");
+    }
+
     private void saveProject() {
         String[] projectData = {
-            orderDateField.getText(),
             projectNameField.getText(),
-            clientCompanyNameField.getText(),
+            orderDateField.getText(),
             singleDateField.getText(),
-            "Pending"
+            cityOfVanueField.getText(),
+            clientCompanyNameField.getText(),
+            contactPhoneField.getText(),
+            contactNameField.getText(),
+            notesFromClientArea.getText(),
+            projectManagerField.getText()
         };
 
-//        String[] projectData = {
-//            projectNameField.getText(),
-//            orderDateField.getText(),
-//        };
-            
-        projectList.add(projectData);
-        EditprojectList.add(projectData);
-        JOptionPane.showMessageDialog(this, "Project berhasil disimpan!");
+        List<String> orderDetailData = new ArrayList<>();
+        for (Component comp : formContainer.getComponents()) {
+            if (comp instanceof JPanel panel) {
+                for (Component field : panel.getComponents()) {
+                    if (field instanceof JTextField textField) {
+                        orderDetailData.add(textField.getText());
+                    } else if (field instanceof JScrollPane scrollPane) {
+                        JTextArea textArea = (JTextArea) ((JViewport) scrollPane.getComponent(0)).getView();
+                        orderDetailData.add(textArea.getText());
+                    }
+                }
+            }
+        }
 
+        if (editIndex >= 0) {
+            // replace existing data
+            CreateProject.projectList.set(editIndex, projectData);
+            CreateProject.EditprojectList.set(editIndex, projectData);
+            CreateProject.orderDetailList.set(editIndex, orderDetailData);
+        } else {
+            // new entry
+            CreateProject.projectList.add(projectData);
+            CreateProject.EditprojectList.add(projectData);
+            CreateProject.orderDetailList.add(orderDetailData);
+        }
+
+        JOptionPane.showMessageDialog(this, "Project berhasil disimpan!");
         Dashboard dashboard = new Dashboard();
         dashboard.setVisible(true);
-        dashboard.loadProjects(); // Pastikan Dashboard diperbarui
-        this.dispose(); // Tutup CreateProject setelah submit
+        dashboard.loadProjects();
+        this.dispose();
     }
 
     private boolean validateInputs() {
@@ -593,7 +748,8 @@ public class CreateProject extends javax.swing.JFrame {
 
         String orderDate = orderDateField.getText().trim();
         if (orderDate.isEmpty() || !isValidDate(orderDate)) {
-            JOptionPane.showMessageDialog(this, "Order Date harus dalam format dd/MM/yyyy dan valid!", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Order Date harus dalam format dd/MM/yyyy dan valid!", "Error",
+                    JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
@@ -604,7 +760,8 @@ public class CreateProject extends javax.swing.JFrame {
 
         String contactPhone = contactPhoneField.getText().trim();
         if (!contactPhone.matches("\\d{10,}")) { // Minimal 10 angka
-            JOptionPane.showMessageDialog(this, "Contact Phone harus berupa angka dan minimal 10 digit!", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Contact Phone harus berupa angka dan minimal 10 digit!", "Error",
+                    JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
@@ -620,7 +777,8 @@ public class CreateProject extends javax.swing.JFrame {
 
         String eventDate = singleDateField.getText().trim();
         if (eventDate.isEmpty() || !isValidDate(eventDate)) {
-            JOptionPane.showMessageDialog(this, "Event Date harus dalam format dd/MM/yyyy dan valid!", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Event Date harus dalam format dd/MM/yyyy dan valid!", "Error",
+                    JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
@@ -632,10 +790,10 @@ public class CreateProject extends javax.swing.JFrame {
         sdf.setLenient(false); // Pastikan hanya tanggal valid yang diterima
 
         try {
-            sdf.parse(date); //parsing tanggal
+            sdf.parse(date); // parsing tanggal
             return true;
         } catch (ParseException e) {
-            return false; //parsing gagal, format salah
+            return false; // parsing gagal, format salah
         }
     }
 
@@ -691,7 +849,8 @@ public class CreateProject extends javax.swing.JFrame {
                 if (hargaPerUnitField == null || hargaPerUnitField.getText().trim().isEmpty()
                         || !hargaPerUnitField.getText().matches("\\d+")
                         || Integer.parseInt(hargaPerUnitField.getText()) <= 0) {
-                    JOptionPane.showMessageDialog(this, "Harga per Unit harus angka lebih dari 0!", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Harga per Unit harus angka lebih dari 0!", "Error",
+                            JOptionPane.ERROR_MESSAGE);
                     return false;
                 }
 
@@ -702,28 +861,35 @@ public class CreateProject extends javax.swing.JFrame {
 
                 if (qtyField == null || qtyField.getText().trim().isEmpty()
                         || !qtyField.getText().matches("\\d+")
-                        || (qtyField.getText().trim().length() > 0 && Integer.parseInt(qtyField.getText().trim()) <= 0)) {
-                    JOptionPane.showMessageDialog(this, "Qty harus angka lebih dari 0!", "Error", JOptionPane.ERROR_MESSAGE);
+                        || (qtyField.getText().trim().length() > 0
+                        && Integer.parseInt(qtyField.getText().trim()) <= 0)) {
+                    JOptionPane.showMessageDialog(this, "Qty harus angka lebih dari 0!", "Error",
+                            JOptionPane.ERROR_MESSAGE);
                     return false;
                 }
 
                 if (frekField == null || frekField.getText().trim().isEmpty()
                         || !frekField.getText().matches("\\d+")
-                        || (frekField.getText().trim().length() > 0 && Integer.parseInt(frekField.getText().trim()) <= 0)) {
-                    JOptionPane.showMessageDialog(this, "Frekuensi harus angka lebih dari 0!", "Error", JOptionPane.ERROR_MESSAGE);
+                        || (frekField.getText().trim().length() > 0
+                        && Integer.parseInt(frekField.getText().trim()) <= 0)) {
+                    JOptionPane.showMessageDialog(this, "Frekuensi harus angka lebih dari 0!", "Error",
+                            JOptionPane.ERROR_MESSAGE);
                     return false;
                 }
 
                 if (periodeField == null || periodeField.getText().trim().isEmpty()
                         || !periodeField.getText().matches("\\d+")
-                        || (periodeField.getText().trim().length() > 0 && Integer.parseInt(periodeField.getText().trim()) <= 0)) {
-                    JOptionPane.showMessageDialog(this, "Periode harus angka lebih dari 0!", "Error", JOptionPane.ERROR_MESSAGE);
+                        || (periodeField.getText().trim().length() > 0
+                        && Integer.parseInt(periodeField.getText().trim()) <= 0)) {
+                    JOptionPane.showMessageDialog(this, "Periode harus angka lebih dari 0!", "Error",
+                            JOptionPane.ERROR_MESSAGE);
                     return false;
                 }
 
                 if (discountField != null && !discountField.getText().trim().isEmpty()
                         && !discountField.getText().matches("\\d+")) {
-                    JOptionPane.showMessageDialog(this, "Discount harus berupa angka jika diisi!", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Discount harus berupa angka jika diisi!", "Error",
+                            JOptionPane.ERROR_MESSAGE);
                     return false;
                 }
             }
@@ -737,7 +903,8 @@ public class CreateProject extends javax.swing.JFrame {
      * regenerated by the Form Editor.
      */
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         mainPanel = new javax.swing.JPanel();
@@ -839,30 +1006,30 @@ public class CreateProject extends javax.swing.JFrame {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(107, Short.MAX_VALUE))
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(107, Short.MAX_VALUE)));
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtProjectNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProjectNameActionPerformed
+    private void txtProjectNameActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txtProjectNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtProjectNameActionPerformed
+    }// GEN-LAST:event_txtProjectNameActionPerformed
 
-    private void txtProjectName1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProjectName1ActionPerformed
+    private void txtProjectName1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txtProjectName1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtProjectName1ActionPerformed
+    }// GEN-LAST:event_txtProjectName1ActionPerformed
 
-    private void txtProjectName2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProjectName2ActionPerformed
+    private void txtProjectName2ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txtProjectName2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtProjectName2ActionPerformed
+    }// GEN-LAST:event_txtProjectName2ActionPerformed
 
     public static void main(String args[]) {
 

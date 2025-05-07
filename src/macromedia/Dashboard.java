@@ -21,8 +21,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Dashboard extends javax.swing.JFrame {
-    
-    
     public static List<String[]> projectList = new ArrayList<>();
 
     public Dashboard() {
@@ -34,20 +32,11 @@ public class Dashboard extends javax.swing.JFrame {
     public void loadProjects() {
         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
         model.setRowCount(0); // Hapus data lama agar tidak duplikat
-        
-        String[] projectData = {
-            "03/12/2025",
-            "ahsdskadhks",
-            "SAdsajasdak",
-            "01/12/2534",
-            "Pending"
-        };
-        
-        projectList.add(projectData);
 
-        for (int i = 0; i < projectList.size(); i++) {
-            String[] project = projectList.get(i);
-            if(project.length >=5) {
+        //projectList.add(projectData);
+        for (int i = 0; i < CreateProject.projectList.size(); i++) {
+            String[] project = CreateProject.projectList.get(i);
+            if (project.length >= 5) {
                 System.out.println("Project " + i + ": " + Arrays.toString(project));
                 model.addRow(new Object[]{
                     project[0],
@@ -59,11 +48,52 @@ public class Dashboard extends javax.swing.JFrame {
                 });
             }
         }
+        //projectList.add(projectData);
 
         TableActionEvent event = new TableActionEvent() {
             @Override
             public void onEdit(int row) {
                 System.out.println("Edit: " + row);
+                System.out.println("Edit: " + row);
+
+                // Tampilkan log seperti sebelumnya
+                System.out.println("======= LOG EDIT PROJECT =======");
+                for (int i = 0; i < CreateProject.EditprojectList.size(); i++) {
+                    String[] data = CreateProject.EditprojectList.get(i);
+                    System.out.println("Data ke-" + (i + 1) + ": " + Arrays.toString(data));
+                }
+
+                System.out.println("======= ORDER DETAIL PROJECT =======");
+                for (int i = 0; i < CreateProject.orderDetailList.size(); i++) {
+                    List<String> detail = CreateProject.orderDetailList.get(i);
+                    System.out.println("Order ke-" + (i + 1) + ": " + detail);
+                }
+
+                // Buka kembali form CreateProject dan isi data berdasarkan row
+                CreateProject form = new CreateProject();
+                form.setVisible(true);
+                form.editProject(row);
+
+                Dashboard.this.dispose(); // tutup dashboard
+
+                System.out.println("======= LOG EDIT PROJECT =======");
+                for (int i = 0; i < CreateProject.EditprojectList.size(); i++) {
+                    String[] data = CreateProject.EditprojectList.get(i);
+                    System.out.println("Data ke-" + (i + 1) + ":");
+                    for (int j = 0; j < data.length; j++) {
+                        System.out.println("  Kolom " + (j + 1) + ": " + data[j]);
+                    }
+                }
+                System.out.println("================================");
+                System.out.println("======= ORDER DETAIL PROJECT =======");
+                for (int i = 0; i < CreateProject.orderDetailList.size(); i++) {
+                    List<String> detail = CreateProject.orderDetailList.get(i);
+                    System.out.println("Order ke-" + (i + 1) + ":");
+                    for (int j = 0; j < detail.size(); j++) {
+                        System.out.println("  Field " + (j + 1) + ": " + detail.get(j));
+                    }
+                }
+                System.out.println("====================================");
             }
 
             @Override
@@ -83,7 +113,7 @@ public class Dashboard extends javax.swing.JFrame {
 
         jTable2.getColumn("Action").setCellRenderer(new TableActionCellRender());
         jTable2.getColumn("Action").setCellEditor(new TableActionCellEditor(event));
-    }   
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
