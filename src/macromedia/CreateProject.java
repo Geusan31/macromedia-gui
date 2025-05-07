@@ -78,6 +78,7 @@ public class CreateProject extends javax.swing.JFrame {
     public static List<String[]> EditprojectList = new ArrayList<>();
 
     public static List<List<String>> orderDetailList = new ArrayList<>();
+    public static List<String[]> viewProjectList = new ArrayList<>();
 
     public CreateProject() {
         setTitle("Multi-Step Form");
@@ -721,6 +722,19 @@ public class CreateProject extends javax.swing.JFrame {
             }
         }
 
+        String[] viewProjectData = {
+            projectNameField.getText(),
+            orderDateField.getText(),
+            singleDateField.getText(),
+            cityOfVanueField.getText(),
+            clientCompanyNameField.getText(),
+            contactPhoneField.getText(),
+            contactNameField.getText(),
+            projectNameField.getText(),
+            notesFromClientArea.getText(),
+            namaItemField.getText(),
+        };
+
         if (editIndex >= 0) {
             // replace existing data
             CreateProject.projectList.set(editIndex, projectData);
@@ -731,6 +745,7 @@ public class CreateProject extends javax.swing.JFrame {
             CreateProject.projectList.add(projectData);
             CreateProject.EditprojectList.add(projectData);
             CreateProject.orderDetailList.add(orderDetailData);
+            CreateProject.viewProjectList.add(viewProjectData);
         }
 
         JOptionPane.showMessageDialog(this, "Project berhasil disimpan!");
@@ -784,7 +799,8 @@ public class CreateProject extends javax.swing.JFrame {
 
         return true; // Jika semua validasi lolos
     }
-
+    
+    
     private boolean isValidDate(String date) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         sdf.setLenient(false); // Pastikan hanya tanggal valid yang diterima

@@ -22,6 +22,7 @@ import java.util.List;
 
 public class Dashboard extends javax.swing.JFrame {
     public static List<String[]> projectList = new ArrayList<>();
+    public static List<String[]> viewProjectList = new ArrayList<>();
 
     public Dashboard() {
         initComponents();
@@ -108,6 +109,56 @@ public class Dashboard extends javax.swing.JFrame {
             @Override
             public void onView(int row) {
                 System.out.println("View: " + row);
+                try {
+                    if (row >= 0 && row < CreateProject.viewProjectList.size()) {
+                        String[] projectDetails = CreateProject.viewProjectList.get(row);
+
+                        String message = "Detail Proyek:\n\n"
+                                + "Nama Proyek: " + projectDetails[0] + "\n"
+                                + "Tanggal Order: " + projectDetails[1] + "\n"
+                                + "Tanggal Event: " + projectDetails[2] + "\n"
+                                + "Kota Venue: " + projectDetails[3] + "\n"
+                                + "Nama Perusahaan Klien: " + projectDetails[4] + "\n"
+                                + "Telepon Kontak: " + projectDetails[5] + "\n"
+                                + "Nama Kontak: " + projectDetails[6] + "\n"
+                                + "Catatan dari Klien: " + projectDetails[8] + "\n"
+                                + "Nama Item: " + projectDetails[9];
+
+                        JOptionPane.showMessageDialog(null, message, "Detail Proyek", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Data Proyek tidak ditemukan", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Terjadi kesalahan :" + e.getMessage(),
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+                try {
+                    if (row >= 0 && row < CreateProject.viewProjectList.size()) {
+                        String[] projectDetails = CreateProject.viewProjectList.get(row);
+
+                        String message = "Detail Proyek:\n\n"
+                                + "Nama Proyek: " + projectDetails[0] + "\n"
+                                + "Tanggal Order: " + projectDetails[1] + "\n"
+                                + "Tanggal Event: " + projectDetails[2] + "\n"
+                                + "Kota Venue: " + projectDetails[3] + "\n"
+                                + "Nama Perusahaan Klien: " + projectDetails[4] + "\n"
+                                + "Telepon Kontak: " + projectDetails[5] + "\n"
+                                + "Nama Kontak: " + projectDetails[6] + "\n"
+                                + "Catatan dari Klien: " + projectDetails[8] + "\n"
+                                + "Nama Item: " + projectDetails[9];
+
+                        JOptionPane.showMessageDialog(null, message, "Detail Proyek", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Data Proyek tidak ditemukan", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Terjadi kesalahan :" + e.getMessage(),
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                }
             }
         };
 
