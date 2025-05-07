@@ -21,6 +21,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Dashboard extends javax.swing.JFrame {
+
     public static List<String[]> projectList = new ArrayList<>();
     public static List<String[]> viewProjectList = new ArrayList<>();
 
@@ -110,54 +111,70 @@ public class Dashboard extends javax.swing.JFrame {
             public void onView(int row) {
                 System.out.println("View: " + row);
                 try {
+                    // Pastikan index baris valid dan ada data di viewProjectList
                     if (row >= 0 && row < CreateProject.viewProjectList.size()) {
                         String[] projectDetails = CreateProject.viewProjectList.get(row);
 
-                        String message = "Detail Proyek:\n\n"
-                                + "Nama Proyek: " + projectDetails[0] + "\n"
-                                + "Tanggal Order: " + projectDetails[1] + "\n"
-                                + "Tanggal Event: " + projectDetails[2] + "\n"
-                                + "Kota Venue: " + projectDetails[3] + "\n"
-                                + "Nama Perusahaan Klien: " + projectDetails[4] + "\n"
-                                + "Telepon Kontak: " + projectDetails[5] + "\n"
-                                + "Nama Kontak: " + projectDetails[6] + "\n"
-                                + "Catatan dari Klien: " + projectDetails[8] + "\n"
-                                + "Nama Item: " + projectDetails[9];
+                        // --- Membangun pesan yang rapi untuk JOptionPane ---
+                        StringBuilder message = new StringBuilder();
+                        message.append("================ DETAIL PROYEK ================\n\n");
 
-                        JOptionPane.showMessageDialog(null, message, "Detail Proyek", JOptionPane.INFORMATION_MESSAGE);
+                        // Menambahkan detail proyek utama
+                        // Pastikan index array sesuai dengan data yang disimpan di viewProjectList
+                        message.append(String.format("Nama Proyek          : %s\n", projectDetails.length > 0 && projectDetails[0] != null ? projectDetails[0] : "N/A"));
+                        message.append(String.format("Tanggal Order        : %s\n", projectDetails.length > 1 && projectDetails[1] != null ? projectDetails[1] : "N/A"));
+                        message.append(String.format("Tanggal Event        : %s\n", projectDetails.length > 2 && projectDetails[2] != null ? projectDetails[2] : "N/A")); // Menggunakan label "Tanggal Event"
+                        message.append(String.format("Kota Venue           : %s\n", projectDetails.length > 3 && projectDetails[3] != null ? projectDetails[3] : "N/A"));
+                        message.append("\n"); // Baris kosong untuk pemisah
+
+                        // Menambahkan detail klien
+                        message.append("--- Informasi Klien ---\n");
+                        message.append(String.format("Nama Perusahaan      : %s\n", projectDetails.length > 4 && projectDetails[4] != null ? projectDetails[4] : "N/A"));
+                        message.append(String.format("Nama Kontak          : %s\n", projectDetails.length > 6 && projectDetails[6] != null ? projectDetails[6] : "N/A")); // Menggunakan index 6 untuk Nama Kontak
+                        message.append(String.format("Telepon Kontak       : %s\n", projectDetails.length > 5 && projectDetails[5] != null ? projectDetails[5] : "N/A")); // Menggunakan index 5 untuk Telepon
+                        message.append("\n"); // Baris kosong untuk pemisah
+
+                        // Menambahkan catatan
+                        message.append("--- Catatan ---\n");
+                        message.append(String.format("Catatan dari Klien   :\n%s\n", projectDetails.length > 8 && projectDetails[8] != null ? projectDetails[8] : "N/A")); // Menggunakan index 8
+                        message.append("\n"); // Baris kosong untuk pemisah
+
+                        // Menambahkan Nama Item (sesuai struktur array yang ada)
+                        // Perlu dicatat: Jika ada banyak item, struktur data ini tidak ideal.
+                        // Ini hanya menampilkan 1 item berdasarkan index 9.
+                        message.append("--- Detail Item (Pertama) ---\n");
+                        message.append(String.format("Nama Item            : %s\n", projectDetails.length > 9 && projectDetails[9] != null ? projectDetails[9] : "N/A"));
+                        message.append("\n"); // Baris kosong untuk pemisah
+
+                        message.append("==============================================\n");
+                        // --- Akhir pembangunan pesan ---
+
+                        // Tampilkan JOptionPane
+                        JOptionPane.showMessageDialog(
+                                null, // Parent component (null artinya di tengah layar)
+                                message.toString(), // Pesan yang sudah dibangun
+                                "Detail Proyek", // Judul dialog
+                                JOptionPane.INFORMATION_MESSAGE // Tipe ikon
+                        );
+
                     } else {
-                        JOptionPane.showMessageDialog(null, "Data Proyek tidak ditemukan", "Error", JOptionPane.ERROR_MESSAGE);
+                        // Handle jika index tidak valid atau data tidak ditemukan
+                        JOptionPane.showMessageDialog(
+                                null,
+                                "Data proyek tidak ditemukan untuk baris ini.",
+                                "Error",
+                                JOptionPane.ERROR_MESSAGE
+                        );
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
-                    JOptionPane.showMessageDialog(null, "Terjadi kesalahan :" + e.getMessage(),
+                    // Tangani error jika terjadi
+                    e.printStackTrace(); // Cetak stack trace untuk debugging
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "Terjadi kesalahan saat menampilkan detail proyek: " + e.getMessage(),
                             "Error",
-                            JOptionPane.ERROR_MESSAGE);
-                }
-                try {
-                    if (row >= 0 && row < CreateProject.viewProjectList.size()) {
-                        String[] projectDetails = CreateProject.viewProjectList.get(row);
-
-                        String message = "Detail Proyek:\n\n"
-                                + "Nama Proyek: " + projectDetails[0] + "\n"
-                                + "Tanggal Order: " + projectDetails[1] + "\n"
-                                + "Tanggal Event: " + projectDetails[2] + "\n"
-                                + "Kota Venue: " + projectDetails[3] + "\n"
-                                + "Nama Perusahaan Klien: " + projectDetails[4] + "\n"
-                                + "Telepon Kontak: " + projectDetails[5] + "\n"
-                                + "Nama Kontak: " + projectDetails[6] + "\n"
-                                + "Catatan dari Klien: " + projectDetails[8] + "\n"
-                                + "Nama Item: " + projectDetails[9];
-
-                        JOptionPane.showMessageDialog(null, message, "Detail Proyek", JOptionPane.INFORMATION_MESSAGE);
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Data Proyek tidak ditemukan", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    JOptionPane.showMessageDialog(null, "Terjadi kesalahan :" + e.getMessage(),
-                            "Error",
-                            JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.ERROR_MESSAGE
+                    );
                 }
             }
         };
