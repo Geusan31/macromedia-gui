@@ -35,7 +35,6 @@ public class Dashboard extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
         model.setRowCount(0); // Hapus data lama agar tidak duplikat
 
-        //projectList.add(projectData);
         for (int i = 0; i < CreateProject.projectList.size(); i++) {
             String[] project = CreateProject.projectList.get(i);
             if (project.length >= 5) {
@@ -50,7 +49,6 @@ public class Dashboard extends javax.swing.JFrame {
                 });
             }
         }
-        //projectList.add(projectData);
 
         TableActionEvent event = new TableActionEvent() {
             @Override

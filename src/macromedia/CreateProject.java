@@ -204,26 +204,7 @@ public class CreateProject extends javax.swing.JFrame {
         orderDateField.setBorder(BorderFactory.createEmptyBorder(10, 5, 10, 5));
         orderDateField.setEditable(false);
         step1.add(orderDateField, gbc);
-
-        // JLabel dateTypeLabel = new JLabel("Date Type:");
-        // gbc.gridx = 0;
-        // gbc.gridy = 3;
-        // step1.add(dateTypeLabel, gbc);
-        //
-        //
-        // JPanel radioPanel = new JPanel();
-        // radioPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-        // singleDateRadio = new JRadioButton("Single Date");
-        // multipleDateRadio = new JRadioButton("Multiple Dates");
-        // dateGroup = new ButtonGroup();
-        // dateGroup.add(singleDateRadio);
-        // dateGroup.add(multipleDateRadio);
-        //
-        // radioPanel.add(singleDateRadio);
-        // radioPanel.add(multipleDateRadio);
-        // gbc.gridx = 0;
-        // gbc.gridy = 4;
-        // step1.add(radioPanel, gbc);
+        
         JLabel eventDateLabel = new JLabel("Event Date:");
         gbc.gridx = 0;
         gbc.gridy = 3;
@@ -237,49 +218,6 @@ public class CreateProject extends javax.swing.JFrame {
         singleDateField.setBorder(BorderFactory.createEmptyBorder(10, 5, 10, 5));
         step1.add(singleDateField, gbc);
 
-        // multipleDatePanel = new JPanel();
-        // multipleDatePanel.setLayout(new BoxLayout(multipleDatePanel,
-        // BoxLayout.Y_AXIS));
-        // multipleDateFields = new ArrayList<>();
-        //
-        // addDateButton = new JButton("Add Another Date");
-        // addDateButton.addActionListener(new ActionListener() {
-        // @Override
-        // public void actionPerformed(ActionEvent e) {
-        // JTextField newDateField = new JTextField(20);
-        // multipleDateFields.add(newDateField);
-        // multipleDatePanel.add(newDateField);
-        // multipleDatePanel.revalidate();
-        // multipleDatePanel.repaint();
-        // }
-        // });
-        //
-        // gbc.gridy = 5;
-        // step1.add(multipleDatePanel, gbc);
-        //
-        // gbc.gridy = 6;
-        // step1.add(addDateButton, gbc);
-        // addDateButton.setVisible(false);
-        // singleDateRadio.addActionListener(new ActionListener() {
-        // @Override
-        // public void actionPerformed(ActionEvent e) {
-        // singleDateField.setVisible(true);
-        // multipleDatePanel.setVisible(false);
-        // addDateButton.setVisible(false);
-        // }
-        // });
-        //
-        // multipleDateRadio.addActionListener(new ActionListener() {
-        // @Override
-        // public void actionPerformed(ActionEvent e) {
-        // singleDateField.setVisible(false);
-        // multipleDatePanel.setVisible(true);
-        // addDateButton.setVisible(true);
-        // }
-        // });
-        //
-        // singleDateRadio.setSelected(true);
-        // multipleDatePanel.setVisible(false);
         JLabel cityOfVanueLabel = new JLabel("City Of Vanue");
         gbc.gridx = 0;
         gbc.gridy = 7;
@@ -380,29 +318,11 @@ public class CreateProject extends javax.swing.JFrame {
         scrollPane = new JScrollPane(formContainer);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setPreferredSize(new Dimension(600, 300));
-//
-//        JLabel addLabel = new JLabel("<html><u>Tambah Order Detail</u></html>");
-//        addLabel.setForeground(Color.BLUE);
-//        addLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
-//        addLabel.addMouseListener(new java.awt.event.MouseAdapter() {
-//            public void mouseClicked(java.awt.event.MouseEvent evt) {
-//                tambahOrderDetail();
-//            }
-//        });
 
-//        JButton resetButton = new JButton("Reset");
-//        resetButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                resetOrderDetails();
-//            }
-//        });
         JButton nextButton = new JButton("Next");
         nextButton.addActionListener(e -> cardLayout.next(mainPanel));
 
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-//        buttonPanel.add(addLabel);
-//        buttonPanel.add(resetButton);
 
         step2.add(buttonPanel, BorderLayout.NORTH);
         step2.add(scrollPane, BorderLayout.CENTER);
@@ -1045,11 +965,6 @@ public class CreateProject extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtProjectNameActionPerformed
 
-    public static void main(String args[]) {
-
-        SwingUtilities.invokeLater(() -> new CreateProject().setVisible(true));
-
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
