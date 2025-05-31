@@ -99,6 +99,15 @@ public class Dashboard extends javax.swing.JFrame {
                         String[] projectDetails = CreateProject.viewProjectList.get(row);
                         System.out.println(projectDetails.length);
 
+                        double hargaPerUnit = Double.parseDouble(projectDetails[10]);
+                        int quantity = Integer.parseInt(projectDetails[12]);
+                        int frekuensi = Integer.parseInt(projectDetails[13]);
+                        int periode = Integer.parseInt(projectDetails[14]);
+                        double discount = Double.parseDouble(projectDetails[15]);
+
+                        double totalSebelumDiskon = hargaPerUnit * (double) quantity * (double) frekuensi * (double) periode;
+                        double totalSetelahDiskon = totalSebelumDiskon - discount;
+
                         StringBuilder message = new StringBuilder();
                         message.append("================ DETAIL PROYEK ================\n\n");
 
@@ -113,7 +122,7 @@ public class Dashboard extends javax.swing.JFrame {
                         message.append(String.format("Nama Kontak    : %s\n", projectDetails.length > 5 && projectDetails[5] != null ? projectDetails[5] : "N/A")); // Menggunakan index 6 untuk Nama Kontak
                         message.append(String.format("Telepon Kontak : %s\n", projectDetails.length > 6 && projectDetails[6] != null ? projectDetails[6] : "N/A")); // Menggunakan index 5 untuk Telepon
                         message.append("\n");
-                        
+
                         message.append("--- Catatan ---\n");
                         message.append(String.format("Responsibility : %s\n", projectDetails.length > 7 && projectDetails[7] != null ? projectDetails[7] : "N/A")); // Menggunakan index 8
                         message.append("\n");
@@ -130,9 +139,9 @@ public class Dashboard extends javax.swing.JFrame {
                         message.append(String.format("Frequensi      : %s\n", projectDetails.length > 13 && projectDetails[13] != null ? projectDetails[13] : "N/A"));
                         message.append(String.format("Periode        : %s\n", projectDetails.length > 14 && projectDetails[14] != null ? projectDetails[14] : "N/A"));
                         message.append(String.format("Discount       : %s\n", projectDetails.length > 15 && projectDetails[15] != null ? projectDetails[15] : "N/A"));
-                        
-                        
-                        message.append("\n"); 
+                        message.append(String.format("Total          : %.2f\n", totalSetelahDiskon));
+
+                        message.append("\n");
 
                         message.append("==============================================\n");
                         JOptionPane.showMessageDialog(

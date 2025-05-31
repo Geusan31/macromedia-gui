@@ -114,13 +114,13 @@ public class CreateProject extends javax.swing.JFrame {
                     if (!validateOrderDetails()) {
                         return;
                     }
-//                    generateSummary();
+                    generateSummary();
                 }
                 if (currentStep < 3) {
                     currentStep++;
 //                    nextButton.setText("Next");
                     System.out.println("Current Step: " + currentStep);
-                    generateSummary();
+                    
                     cardLayout.show(mainPanel, "Step" + currentStep);
                     updateButtonState();
                 } else if (currentStep == 3) {
@@ -205,7 +205,6 @@ public class CreateProject extends javax.swing.JFrame {
         orderDateField.setBorder(BorderFactory.createEmptyBorder(10, 5, 10, 5));
         orderDateField.setEditable(false);
         step1.add(orderDateField, gbc);
-
 
         JLabel eventDateLabel = new JLabel("Event Date:");
         gbc.gridx = 0;
@@ -347,7 +346,7 @@ public class CreateProject extends javax.swing.JFrame {
 
         return step3;
     }
-
+    
     private void generateSummary() {
         // --- Mengambil data field utama proyek ---
         // Pengecekan inisialisasi field utama
@@ -371,6 +370,15 @@ public class CreateProject extends javax.swing.JFrame {
         String contactName = contactNameField.getText() != null ? contactNameField.getText() : "N/A";
         String notesFromClient = notesFromClientArea.getText() != null ? notesFromClientArea.getText() : "N/A";
 
+        double hargaPerUnit = Double.parseDouble(hargaPerUnitField.getText());
+        int quantity = Integer.parseInt(qtyField.getText());
+        int frekuensi = Integer.parseInt(frekField.getText());
+        int periode = Integer.parseInt(periodeField.getText());
+        double discount = Double.parseDouble(discountField.getText());
+
+        double totalSebelumDiskon = hargaPerUnit * (double)quantity * (double)frekuensi * (double)periode;
+        double totalSetelahDiskon = totalSebelumDiskon - discount;
+
         StringBuilder summary = new StringBuilder();
 
         // --- Bagian Summary Proyek Utama (Rapi) ---
@@ -386,7 +394,7 @@ public class CreateProject extends javax.swing.JFrame {
         summary.append("Telepon Kontak\t: ").append(contactPhone).append("\n\n");
 
         summary.append("Catatan Klien\t: ").append(notesFromClient).append("\n");
-        
+
         summary.append("Responsibility\t: ").append(projectManagerField.getText()).append("\n");
         summary.append("===========================================\n\n");
 
@@ -398,6 +406,9 @@ public class CreateProject extends javax.swing.JFrame {
         summary.append("Frekuensi\t: ").append(frekField.getText()).append("\n");
         summary.append("Periode\t: ").append(periodeField.getText()).append("\n");
         summary.append("Discount\t: ").append(discountField.getText()).append("\n");
+        
+        summary.append("Total\t: ").append(String.valueOf(totalSetelahDiskon)).append("\n");
+        
         summary.append("Deskripsi\t: ").append(descriptionArea.getText()).append("\n"); // Deskripsi di baris baru
         summary.append("---------------------------\n\n"); // Pemisah antar detail
         summary.append("============= Akhir Ringkasan =============");
@@ -692,7 +703,6 @@ public class CreateProject extends javax.swing.JFrame {
 
         return true; // Jika semua validasi lolos
     }
-
 
     private boolean isValidDate(String date) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
