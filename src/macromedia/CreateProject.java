@@ -71,7 +71,6 @@ public class CreateProject extends javax.swing.JFrame {
 
     private JPanel formContainer;
     private JScrollPane scrollPane;
-    private int formCount = 0;
 
     public static List<String[]> projectList = new ArrayList<>();
     public static List<String[]> EditprojectList = new ArrayList<>();
@@ -102,10 +101,6 @@ public class CreateProject extends javax.swing.JFrame {
         JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT)); // Reset di kiri
         JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT)); // Next & Back di kanan
 
-        resetButton = new JButton("Reset");
-        resetButton.setVisible(false);
-        // leftPanel.add(resetButton);
-
         backButton = new JButton("Back");
         nextButton = new JButton("Next");
         rightPanel.add(backButton);
@@ -113,10 +108,6 @@ public class CreateProject extends javax.swing.JFrame {
 
         leftPanel.add(new JLabel(""));
         System.out.println("Step Saat ini: " + currentStep);
-
-        if (currentStep == 2) {
-            leftPanel.add(resetButton);
-        }
 
         backButton.setEnabled(false);
 
@@ -130,18 +121,35 @@ public class CreateProject extends javax.swing.JFrame {
                     if (!validateOrderDetails()) {
                         return;
                     }
-                    generateSummary();
+//                    generateSummary();
                 }
                 if (currentStep < 3) {
                     currentStep++;
-                    nextButton.setText("Next");
+//                    nextButton.setText("Next");
                     System.out.println("Current Step: " + currentStep);
+                    generateSummary();
                     cardLayout.show(mainPanel, "Step" + currentStep);
                     updateButtonState();
-                }
-                if (currentStep == 3) {
+                } else if (currentStep == 3) {
+                    currentStep++;
+                    System.out.println("Current Step: " + currentStep);
+                    cardLayout.show(mainPanel, "Step" + currentStep);
+//                    currentStep++;
                     saveProject();
+                    JOptionPane.showMessageDialog(null, "Project berhasil disimpan!");
+                    Dashboard dashboard = new Dashboard();
+                    dashboard.setVisible(true);
+                    dashboard.loadProjects();
                     nextButton.setText("Submit");
+                    updateButtonState();
+                } else if (currentStep == 4) {
+                    saveProject();
+                    JOptionPane.showMessageDialog(null, "Project berhasil disimpan!");
+                    Dashboard dashboard = new Dashboard();
+                    dashboard.setVisible(true);
+                    dashboard.loadProjects();
+                    nextButton.setText("Submit");
+                    updateButtonState();
                 }
             }
         });
@@ -149,8 +157,8 @@ public class CreateProject extends javax.swing.JFrame {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                currentStep--;
                 if (currentStep > 1) {
-                    currentStep--;
                     System.out.println("Current Step: " + currentStep);
                     cardLayout.show(mainPanel, "Step" + currentStep);
                     updateButtonState();
@@ -204,7 +212,7 @@ public class CreateProject extends javax.swing.JFrame {
         orderDateField.setBorder(BorderFactory.createEmptyBorder(10, 5, 10, 5));
         orderDateField.setEditable(false);
         step1.add(orderDateField, gbc);
-        
+
         JLabel eventDateLabel = new JLabel("Event Date:");
         gbc.gridx = 0;
         gbc.gridy = 3;
@@ -419,7 +427,7 @@ public class CreateProject extends javax.swing.JFrame {
                     summary.append("Periode        : ").append(periode).append("\n");
                     summary.append("Discount       : ").append(discount).append("\n");
                     summary.append("Deskripsi      :\n").append(description).append("\n"); // Deskripsi di baris baru
-                    summary.append("---------------------------\n\n"); // Pemisah antar detail
+        summary.append("---------------------------\n\n"); // Pemisah antar detail
                 } else {
                     // Tangani kasus jika data mungkin tidak lengkap untuk entri ini
                     summary.append("--- Detail Ke-").append(i + 1).append(" (Data Tidak Lengkap/Format Salah) ---\n");
@@ -525,14 +533,6 @@ public class CreateProject extends javax.swing.JFrame {
         JScrollBar vertical = scrollPane.getVerticalScrollBar();
         vertical.setValue(vertical.getMaximum());
 
-        formCount++;
-    }
-
-    private void resetOrderDetails() {
-        formContainer.removeAll();
-        formContainer.revalidate();
-        formContainer.repaint();
-        formCount = 0;
     }
 
     public void showGUI() {
@@ -546,7 +546,8 @@ public class CreateProject extends javax.swing.JFrame {
 
     private void updateButtonState() {
         backButton.setEnabled(currentStep > 1);
-        resetButton.setVisible(currentStep == 2);
+        nextButton.setText(currentStep == 3 ? "Submit" : "Next");
+
     }
 
     public void editProject(int index) {
@@ -650,8 +651,7 @@ public class CreateProject extends javax.swing.JFrame {
             contactNameField.getText(),
             projectNameField.getText(),
             notesFromClientArea.getText(),
-            namaItemField.getText(),
-        };
+            namaItemField.getText(),};
 
         if (editIndex >= 0) {
             // replace existing data
@@ -666,10 +666,6 @@ public class CreateProject extends javax.swing.JFrame {
             CreateProject.viewProjectList.add(viewProjectData);
         }
 
-        JOptionPane.showMessageDialog(this, "Project berhasil disimpan!");
-        Dashboard dashboard = new Dashboard();
-        dashboard.setVisible(true);
-        dashboard.loadProjects();
         this.dispose();
     }
 
@@ -717,8 +713,7 @@ public class CreateProject extends javax.swing.JFrame {
 
         return true; // Jika semua validasi lolos
     }
-    
-    
+
     private boolean isValidDate(String date) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         sdf.setLenient(false);
