@@ -111,45 +111,33 @@ public class Dashboard extends javax.swing.JFrame {
             public void onView(int row) {
                 System.out.println("View: " + row);
                 try {
-                    // Pastikan index baris valid dan ada data di viewProjectList
                     if (row >= 0 && row < CreateProject.viewProjectList.size()) {
                         String[] projectDetails = CreateProject.viewProjectList.get(row);
 
-                        // --- Membangun pesan yang rapi untuk JOptionPane ---
                         StringBuilder message = new StringBuilder();
                         message.append("================ DETAIL PROYEK ================\n\n");
 
-                        // Menambahkan detail proyek utama
-                        // Pastikan index array sesuai dengan data yang disimpan di viewProjectList
                         message.append(String.format("Nama Proyek          : %s\n", projectDetails.length > 0 && projectDetails[0] != null ? projectDetails[0] : "N/A"));
                         message.append(String.format("Tanggal Order        : %s\n", projectDetails.length > 1 && projectDetails[1] != null ? projectDetails[1] : "N/A"));
-                        message.append(String.format("Tanggal Event        : %s\n", projectDetails.length > 2 && projectDetails[2] != null ? projectDetails[2] : "N/A")); // Menggunakan label "Tanggal Event"
+                        message.append(String.format("Tanggal Event        : %s\n", projectDetails.length > 2 && projectDetails[2] != null ? projectDetails[2] : "N/A"));
                         message.append(String.format("Kota Venue           : %s\n", projectDetails.length > 3 && projectDetails[3] != null ? projectDetails[3] : "N/A"));
-                        message.append("\n"); // Baris kosong untuk pemisah
+                        message.append("\n");
 
-                        // Menambahkan detail klien
                         message.append("--- Informasi Klien ---\n");
                         message.append(String.format("Nama Perusahaan      : %s\n", projectDetails.length > 4 && projectDetails[4] != null ? projectDetails[4] : "N/A"));
                         message.append(String.format("Nama Kontak          : %s\n", projectDetails.length > 6 && projectDetails[6] != null ? projectDetails[6] : "N/A")); // Menggunakan index 6 untuk Nama Kontak
                         message.append(String.format("Telepon Kontak       : %s\n", projectDetails.length > 5 && projectDetails[5] != null ? projectDetails[5] : "N/A")); // Menggunakan index 5 untuk Telepon
-                        message.append("\n"); // Baris kosong untuk pemisah
+                        message.append("\n");
 
-                        // Menambahkan catatan
                         message.append("--- Catatan ---\n");
                         message.append(String.format("Catatan dari Klien   :\n%s\n", projectDetails.length > 8 && projectDetails[8] != null ? projectDetails[8] : "N/A")); // Menggunakan index 8
-                        message.append("\n"); // Baris kosong untuk pemisah
+                        message.append("\n");
 
-                        // Menambahkan Nama Item (sesuai struktur array yang ada)
-                        // Perlu dicatat: Jika ada banyak item, struktur data ini tidak ideal.
-                        // Ini hanya menampilkan 1 item berdasarkan index 9.
                         message.append("--- Detail Item (Pertama) ---\n");
                         message.append(String.format("Nama Item            : %s\n", projectDetails.length > 9 && projectDetails[9] != null ? projectDetails[9] : "N/A"));
-                        message.append("\n"); // Baris kosong untuk pemisah
+                        message.append("\n"); 
 
                         message.append("==============================================\n");
-                        // --- Akhir pembangunan pesan ---
-
-                        // Tampilkan JOptionPane
                         JOptionPane.showMessageDialog(
                                 null, // Parent component (null artinya di tengah layar)
                                 message.toString(), // Pesan yang sudah dibangun

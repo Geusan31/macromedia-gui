@@ -38,7 +38,7 @@ import javax.swing.JViewport;
 
 public class CreateProject extends javax.swing.JFrame {
 
-    private int editIndex = -1; // -1 indicates not in edit mode
+    private int editIndex = -1;
     private CardLayout cardLayout;
     private JTextField projectNameField = new JTextField(15);
     private JTextField orderDateField = new JTextField(15);
@@ -53,7 +53,6 @@ public class CreateProject extends javax.swing.JFrame {
 
     private JTextField namaItemField = new JTextField(15);
     private JTextField hargaPerUnitField = new JTextField(15);
-    private JTextField deskripsiField = new JTextField(15);
     private JTextField qtyField = new JTextField(15);
     private JTextField frekField = new JTextField(15);
     private JTextField periodeField = new JTextField(15);
@@ -476,9 +475,8 @@ public class CreateProject extends javax.swing.JFrame {
         if (detailList == null || detailList.isEmpty()) {
             summary.append("(Tidak ada order detail yang ditambahkan)\n");
         } else {
-            // Loop MELALUI LIST<LIST<STRING>>
             for (int i = 0; i < detailList.size(); i++) {
-                List<String> detailData = detailList.get(i); // Ambil List<String> untuk detail ke-i
+                List<String> detailData = detailList.get(i);
 
                 // Pastikan inner list memiliki jumlah elemen yang diharapkan (minimal 7)
                 final int EXPECTED_FIELD_COUNT = 7; // Sesuaikan jika jumlah field berbeda
@@ -517,7 +515,7 @@ public class CreateProject extends javax.swing.JFrame {
         // --- Menampilkan Summary ---
         summaryArea.setText(summary.toString());
 
-        // Optional: Mengatur kursor kembali ke awal teks area summary
+        // Mengatur kursor kembali ke awal teks area summary
         summaryArea.setCaretPosition(0);
     }
 
@@ -803,13 +801,13 @@ public class CreateProject extends javax.swing.JFrame {
     
     private boolean isValidDate(String date) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        sdf.setLenient(false); // Pastikan hanya tanggal valid yang diterima
+        sdf.setLenient(false);
 
         try {
-            sdf.parse(date); // parsing tanggal
+            sdf.parse(date);
             return true;
         } catch (ParseException e) {
-            return false; // parsing gagal, format salah
+            return false;
         }
     }
 
@@ -920,7 +918,7 @@ public class CreateProject extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         mainPanel = new javax.swing.JPanel();
@@ -1022,30 +1020,30 @@ public class CreateProject extends javax.swing.JFrame {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(107, Short.MAX_VALUE)));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(107, Short.MAX_VALUE))
+        );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtProjectNameActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txtProjectNameActionPerformed
+    private void txtProjectName2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProjectName2ActionPerformed
         // TODO add your handling code here:
-    }// GEN-LAST:event_txtProjectNameActionPerformed
+    }//GEN-LAST:event_txtProjectName2ActionPerformed
 
-    private void txtProjectName1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txtProjectName1ActionPerformed
+    private void txtProjectName1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProjectName1ActionPerformed
         // TODO add your handling code here:
-    }// GEN-LAST:event_txtProjectName1ActionPerformed
+    }//GEN-LAST:event_txtProjectName1ActionPerformed
 
-    private void txtProjectName2ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txtProjectName2ActionPerformed
+    private void txtProjectNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProjectNameActionPerformed
         // TODO add your handling code here:
-    }// GEN-LAST:event_txtProjectName2ActionPerformed
+    }//GEN-LAST:event_txtProjectNameActionPerformed
 
     public static void main(String args[]) {
 
