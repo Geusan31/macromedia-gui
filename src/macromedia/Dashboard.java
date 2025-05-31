@@ -1,22 +1,8 @@
 package macromedia;
 
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import javax.swing.DefaultCellEditor;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 import java.util.Arrays;
 import java.util.List;
 
@@ -111,28 +97,41 @@ public class Dashboard extends javax.swing.JFrame {
                 try {
                     if (row >= 0 && row < CreateProject.viewProjectList.size()) {
                         String[] projectDetails = CreateProject.viewProjectList.get(row);
+                        System.out.println(projectDetails.length);
 
                         StringBuilder message = new StringBuilder();
                         message.append("================ DETAIL PROYEK ================\n\n");
 
-                        message.append(String.format("Nama Proyek          : %s\n", projectDetails.length > 0 && projectDetails[0] != null ? projectDetails[0] : "N/A"));
-                        message.append(String.format("Tanggal Order        : %s\n", projectDetails.length > 1 && projectDetails[1] != null ? projectDetails[1] : "N/A"));
-                        message.append(String.format("Tanggal Event        : %s\n", projectDetails.length > 2 && projectDetails[2] != null ? projectDetails[2] : "N/A"));
-                        message.append(String.format("Kota Venue           : %s\n", projectDetails.length > 3 && projectDetails[3] != null ? projectDetails[3] : "N/A"));
+                        message.append(String.format("Nama Proyek    : %s\n", projectDetails.length > 0 && projectDetails[0] != null ? projectDetails[0] : "N/A"));
+                        message.append(String.format("Tanggal Order  : %s\n", projectDetails.length > 1 && projectDetails[1] != null ? projectDetails[1] : "N/A"));
+                        message.append(String.format("Tanggal Event  : %s\n", projectDetails.length > 2 && projectDetails[2] != null ? projectDetails[2] : "N/A"));
+                        message.append(String.format("Kota Venue     : %s\n", projectDetails.length > 3 && projectDetails[3] != null ? projectDetails[3] : "N/A"));
                         message.append("\n");
 
                         message.append("--- Informasi Klien ---\n");
-                        message.append(String.format("Nama Perusahaan      : %s\n", projectDetails.length > 4 && projectDetails[4] != null ? projectDetails[4] : "N/A"));
-                        message.append(String.format("Nama Kontak          : %s\n", projectDetails.length > 6 && projectDetails[6] != null ? projectDetails[6] : "N/A")); // Menggunakan index 6 untuk Nama Kontak
-                        message.append(String.format("Telepon Kontak       : %s\n", projectDetails.length > 5 && projectDetails[5] != null ? projectDetails[5] : "N/A")); // Menggunakan index 5 untuk Telepon
+                        message.append(String.format("Nama Perusahaan: %s\n", projectDetails.length > 4 && projectDetails[4] != null ? projectDetails[4] : "N/A"));
+                        message.append(String.format("Nama Kontak    : %s\n", projectDetails.length > 5 && projectDetails[5] != null ? projectDetails[5] : "N/A")); // Menggunakan index 6 untuk Nama Kontak
+                        message.append(String.format("Telepon Kontak : %s\n", projectDetails.length > 6 && projectDetails[6] != null ? projectDetails[6] : "N/A")); // Menggunakan index 5 untuk Telepon
+                        message.append("\n");
+                        
+                        message.append("--- Catatan ---\n");
+                        message.append(String.format("Responsibility : %s\n", projectDetails.length > 7 && projectDetails[7] != null ? projectDetails[7] : "N/A")); // Menggunakan index 8
                         message.append("\n");
 
                         message.append("--- Catatan ---\n");
-                        message.append(String.format("Catatan dari Klien   :\n%s\n", projectDetails.length > 8 && projectDetails[8] != null ? projectDetails[8] : "N/A")); // Menggunakan index 8
+                        message.append(String.format("Catatan Klien  : %s\n", projectDetails.length > 8 && projectDetails[8] != null ? projectDetails[8] : "N/A")); // Menggunakan index 8
                         message.append("\n");
 
                         message.append("--- Detail Item (Pertama) ---\n");
-                        message.append(String.format("Nama Item            : %s\n", projectDetails.length > 9 && projectDetails[9] != null ? projectDetails[9] : "N/A"));
+                        message.append(String.format("Nama Item      : %s\n", projectDetails.length > 9 && projectDetails[9] != null ? projectDetails[9] : "N/A"));
+                        message.append(String.format("Harga per Unit : %s\n", projectDetails.length > 10 && projectDetails[10] != null ? projectDetails[10] : "N/A"));
+                        message.append(String.format("Deskripsi      : %s\n", projectDetails.length > 11 && projectDetails[11] != null ? projectDetails[11] : "N/A"));
+                        message.append(String.format("Quantity       : %s\n", projectDetails.length > 12 && projectDetails[12] != null ? projectDetails[12] : "N/A"));
+                        message.append(String.format("Frequensi      : %s\n", projectDetails.length > 13 && projectDetails[13] != null ? projectDetails[13] : "N/A"));
+                        message.append(String.format("Periode        : %s\n", projectDetails.length > 14 && projectDetails[14] != null ? projectDetails[14] : "N/A"));
+                        message.append(String.format("Discount       : %s\n", projectDetails.length > 15 && projectDetails[15] != null ? projectDetails[15] : "N/A"));
+                        
+                        
                         message.append("\n"); 
 
                         message.append("==============================================\n");
@@ -298,6 +297,7 @@ public class Dashboard extends javax.swing.JFrame {
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new Dashboard().setVisible(true);
             }

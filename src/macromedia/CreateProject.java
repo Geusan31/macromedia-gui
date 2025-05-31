@@ -2,14 +2,11 @@ package macromedia;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.Color;
 import java.awt.Component;
-import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,19 +17,15 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
 import javax.swing.Box;
 import javax.swing.JViewport;
 
@@ -204,7 +197,7 @@ public class CreateProject extends javax.swing.JFrame {
         orderDateField.setBorder(BorderFactory.createEmptyBorder(10, 5, 10, 5));
         orderDateField.setEditable(false);
         step1.add(orderDateField, gbc);
-        
+
         JLabel eventDateLabel = new JLabel("Event Date:");
         gbc.gridx = 0;
         gbc.gridy = 3;
@@ -373,63 +366,31 @@ public class CreateProject extends javax.swing.JFrame {
 
         // --- Bagian Summary Proyek Utama (Rapi) ---
         summary.append("============= Ringkasan Proyek =============\n\n");
-        summary.append("Nama Proyek          : ").append(projectName).append("\n");
-        summary.append("Tanggal Order        : ").append(orderDate).append("\n");
-        summary.append("Tanggal Single       : ").append(singleDate).append("\n");
-        summary.append("Kota Venue           : ").append(city).append("\n\n");
+        summary.append("Nama Proyek\t: ").append(projectName).append("\n");
+        summary.append("Tanggal Order\t: ").append(orderDate).append("\n");
+        summary.append("Tanggal Single\t: ").append(singleDate).append("\n");
+        summary.append("Kota Venue\t: ").append(city).append("\n\n");
 
-        summary.append("Informasi Klien      :\n");
-        summary.append("Perusahaan           : ").append(clientCompanyName).append("\n");
-        summary.append("Nama Kontak          : ").append(contactName).append("\n");
-        summary.append("Telepon Kontak       : ").append(contactPhone).append("\n\n");
+        summary.append("Informasi Klien\t:\n");
+        summary.append("Perusahaan\t: ").append(clientCompanyName).append("\n");
+        summary.append("Nama Kontak\t: ").append(contactName).append("\n");
+        summary.append("Telepon Kontak\t: ").append(contactPhone).append("\n\n");
 
-        summary.append("Catatan dari Klien   :\n").append(notesFromClient).append("\n");
+        summary.append("Catatan Klien\t: ").append(notesFromClient).append("\n");
+        
+        summary.append("Responsibility\t: ").append(projectManagerField.getText()).append("\n");
         summary.append("===========================================\n\n");
 
         // --- Bagian Detail Order (Menggunakan List<List<String>>) ---
         summary.append("============= Detail Order ============\n\n");
-
-        // Mengakses List<List<String>> yang ada di kelas CreateProject
-        List<List<String>> detailList = CreateProject.orderDetailList; // Ambil referensi listnya
-
-        if (detailList == null || detailList.isEmpty()) {
-            summary.append("(Tidak ada order detail yang ditambahkan)\n");
-        } else {
-            for (int i = 0; i < detailList.size(); i++) {
-                List<String> detailData = detailList.get(i);
-
-                // Pastikan inner list memiliki jumlah elemen yang diharapkan (minimal 7)
-                final int EXPECTED_FIELD_COUNT = 7; // Sesuaikan jika jumlah field berbeda
-                if (detailData != null && detailData.size() >= EXPECTED_FIELD_COUNT) {
-                    // Ambil data dari List<String> menggunakan index
-                    String namaItem = detailData.get(0) != null ? detailData.get(0) : "N/A";
-                    String harga = detailData.get(1) != null ? detailData.get(1) : "N/A";
-                    String description = detailData.get(2) != null ? detailData.get(2) : "N/A";
-                    String qty = detailData.get(3) != null ? detailData.get(3) : "N/A";
-                    String frek = detailData.get(4) != null ? detailData.get(4) : "N/A";
-                    String periode = detailData.get(5) != null ? detailData.get(5) : "N/A";
-                    String discount = detailData.get(6) != null ? detailData.get(6) : "N/A";
-
-                    // Format data detail dengan label yang jelas
-                    summary.append("--- Detail Ke-").append(i + 1).append(" ---\n");
-                    summary.append("Nama Item      : ").append(namaItem).append("\n");
-                    summary.append("Harga/Unit     : ").append(harga).append("\n");
-                    summary.append("Quantity       : ").append(qty).append("\n");
-                    summary.append("Frekuensi      : ").append(frek).append("\n");
-                    summary.append("Periode        : ").append(periode).append("\n");
-                    summary.append("Discount       : ").append(discount).append("\n");
-                    summary.append("Deskripsi      :\n").append(description).append("\n"); // Deskripsi di baris baru
-                    summary.append("---------------------------\n\n"); // Pemisah antar detail
-                } else {
-                    // Tangani kasus jika data mungkin tidak lengkap untuk entri ini
-                    summary.append("--- Detail Ke-").append(i + 1).append(" (Data Tidak Lengkap/Format Salah) ---\n");
-                    summary.append("Data Mentah: ").append(detailData).append("\n"); // Tampilkan data mentah untuk debugging
-                    summary.append("---------------------------\n\n");
-                    System.err.println("Warning: Data detail pada index " + i + " tidak lengkap atau formatnya salah.");
-                }
-            }
-        }
-
+        summary.append("Nama Item\t: ").append(namaItemField.getText()).append("\n");
+        summary.append("Harga/Unit\t: ").append(hargaPerUnitField.getText()).append("\n");
+        summary.append("Quantity\t: ").append(qtyField.getText()).append("\n");
+        summary.append("Frekuensi\t: ").append(frekField.getText()).append("\n");
+        summary.append("Periode\t: ").append(periodeField.getText()).append("\n");
+        summary.append("Discount\t: ").append(discountField.getText()).append("\n");
+        summary.append("Deskripsi\t: ").append(descriptionArea.getText()).append("\n"); // Deskripsi di baris baru
+        summary.append("---------------------------\n\n"); // Pemisah antar detail
         summary.append("============= Akhir Ringkasan =============");
 
         // --- Menampilkan Summary ---
@@ -623,7 +584,14 @@ public class CreateProject extends javax.swing.JFrame {
             contactPhoneField.getText(),
             contactNameField.getText(),
             notesFromClientArea.getText(),
-            projectManagerField.getText()
+            projectManagerField.getText(),
+            namaItemField.getText(),
+            hargaPerUnitField.getText(),
+            descriptionArea.getText(),
+            qtyField.getText(),
+            frekField.getText(),
+            periodeField.getText(),
+            discountField.getText()
         };
 
         List<String> orderDetailData = new ArrayList<>();
@@ -648,9 +616,15 @@ public class CreateProject extends javax.swing.JFrame {
             clientCompanyNameField.getText(),
             contactPhoneField.getText(),
             contactNameField.getText(),
-            projectNameField.getText(),
             notesFromClientArea.getText(),
+            projectManagerField.getText(),
             namaItemField.getText(),
+            hargaPerUnitField.getText(),
+            descriptionArea.getText(),
+            qtyField.getText(),
+            frekField.getText(),
+            periodeField.getText(),
+            discountField.getText()
         };
 
         if (editIndex >= 0) {
@@ -665,6 +639,10 @@ public class CreateProject extends javax.swing.JFrame {
             CreateProject.orderDetailList.add(orderDetailData);
             CreateProject.viewProjectList.add(viewProjectData);
         }
+
+        int index = 0;
+        List<String> detail = orderDetailList.get(index);
+        System.out.println(detail.size());
 
         JOptionPane.showMessageDialog(this, "Project berhasil disimpan!");
         Dashboard dashboard = new Dashboard();
@@ -717,8 +695,7 @@ public class CreateProject extends javax.swing.JFrame {
 
         return true; // Jika semua validasi lolos
     }
-    
-    
+
     private boolean isValidDate(String date) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         sdf.setLenient(false);
