@@ -645,11 +645,6 @@ public class CreateProject extends javax.swing.JFrame {
         int index = 0;
         List<String> detail = orderDetailList.get(index);
         System.out.println(detail.size());
-
-        JOptionPane.showMessageDialog(this, "Project berhasil disimpan!");
-        Dashboard dashboard = new Dashboard();
-        dashboard.setVisible(true);
-        dashboard.loadProjects();
         this.dispose();
     }
 
