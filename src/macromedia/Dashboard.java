@@ -9,7 +9,6 @@ import java.util.List;
 public class Dashboard extends javax.swing.JFrame {
 
     public static List<String[]> projectList = new ArrayList<>();
-    public static List<String[]> viewProjectList = new ArrayList<>();
 
     public Dashboard() {
         initComponents();
@@ -26,11 +25,11 @@ public class Dashboard extends javax.swing.JFrame {
             if (project.length >= 5) {
                 System.out.println("Project " + i + ": " + Arrays.toString(project));
                 model.addRow(new Object[]{
-                    project[0],
                     project[1],
-                    project[2],
-                    project[3],
+                    project[0],
                     project[4],
+                    project[2],
+                    "Pending",
                     "Edit/Delete"
                 });
             }
@@ -98,8 +97,8 @@ public class Dashboard extends javax.swing.JFrame {
             public void onView(int row) {
                 System.out.println("View: " + row);
                 try {
-                    if (row >= 0 && row < CreateProject.viewProjectList.size()) {
-                        String[] projectDetails = CreateProject.viewProjectList.get(row);
+                    if (row >= 0 && row < CreateProject.projectList.size()) {
+                        String[] projectDetails = CreateProject.projectList.get(row);
                         System.out.println(projectDetails.length);
 
                         double hargaPerUnit = Double.parseDouble(projectDetails[10]);
@@ -122,16 +121,16 @@ public class Dashboard extends javax.swing.JFrame {
 
                         message.append("--- Informasi Klien ---\n");
                         message.append(String.format("Nama Perusahaan: %s\n", projectDetails.length > 4 && projectDetails[4] != null ? projectDetails[4] : "N/A"));
-                        message.append(String.format("Nama Kontak    : %s\n", projectDetails.length > 5 && projectDetails[5] != null ? projectDetails[5] : "N/A")); // Menggunakan index 6 untuk Nama Kontak
-                        message.append(String.format("Telepon Kontak : %s\n", projectDetails.length > 6 && projectDetails[6] != null ? projectDetails[6] : "N/A")); // Menggunakan index 5 untuk Telepon
+                        message.append(String.format("Nama Kontak    : %s\n", projectDetails.length > 6 && projectDetails[6] != null ? projectDetails[6] : "N/A")); // Menggunakan index 6 untuk Nama Kontak
+                        message.append(String.format("Telepon Kontak : %s\n", projectDetails.length > 5 && projectDetails[5] != null ? projectDetails[5] : "N/A")); // Menggunakan index 5 untuk Telepon
                         message.append("\n");
 
                         message.append("--- Catatan ---\n");
-                        message.append(String.format("Responsibility : %s\n", projectDetails.length > 7 && projectDetails[7] != null ? projectDetails[7] : "N/A")); // Menggunakan index 8
+                        message.append(String.format("Responsibility : %s\n", projectDetails.length > 8 && projectDetails[8] != null ? projectDetails[8] : "N/A")); // Menggunakan index 8
                         message.append("\n");
 
                         message.append("--- Catatan ---\n");
-                        message.append(String.format("Catatan Klien  : %s\n", projectDetails.length > 8 && projectDetails[8] != null ? projectDetails[8] : "N/A")); // Menggunakan index 8
+                        message.append(String.format("Catatan Klien  : %s\n", projectDetails.length > 7 && projectDetails[7] != null ? projectDetails[7] : "N/A")); // Menggunakan index 8
                         message.append("\n");
 
                         message.append("--- Detail Item (Pertama) ---\n");

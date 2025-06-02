@@ -69,7 +69,6 @@ public class CreateProject extends javax.swing.JFrame {
     public static List<String[]> EditprojectList = new ArrayList<>();
 
     public static List<List<String>> orderDetailList = new ArrayList<>();
-    public static List<String[]> viewProjectList = new ArrayList<>();
 
     public CreateProject() {
         setTitle("Multi-Step Form");
@@ -621,24 +620,6 @@ public class CreateProject extends javax.swing.JFrame {
             }
         }
 
-        String[] viewProjectData = {
-            projectNameField.getText(),
-            orderDateField.getText(),
-            singleDateField.getText(),
-            cityOfVanueField.getText(),
-            clientCompanyNameField.getText(),
-            contactPhoneField.getText(),
-            contactNameField.getText(),
-            notesFromClientArea.getText(),
-            projectManagerField.getText(),
-            namaItemField.getText(),
-            hargaPerUnitField.getText(),
-            descriptionArea.getText(),
-            qtyField.getText(),
-            frekField.getText(),
-            periodeField.getText(),
-            discountField.getText()
-        };
 
         if (editIndex >= 0) {
             // replace existing data
@@ -650,7 +631,6 @@ public class CreateProject extends javax.swing.JFrame {
             CreateProject.projectList.add(projectData);
             CreateProject.EditprojectList.add(projectData);
             CreateProject.orderDetailList.add(orderDetailData);
-            CreateProject.viewProjectList.add(viewProjectData);
         }
 
         int index = 0;
