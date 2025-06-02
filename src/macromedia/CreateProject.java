@@ -1,3 +1,4 @@
+
 package macromedia;
 
 import java.awt.BorderLayout;
@@ -28,6 +29,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.Box;
 import javax.swing.JViewport;
+
 
 public class CreateProject extends javax.swing.JFrame {
 
@@ -119,7 +121,7 @@ public class CreateProject extends javax.swing.JFrame {
                     currentStep++;
 //                    nextButton.setText("Next");
                     System.out.println("Current Step: " + currentStep);
-                    
+
                     cardLayout.show(mainPanel, "Step" + currentStep);
                     updateButtonState();
                 } else if (currentStep == 3) {
@@ -345,7 +347,7 @@ public class CreateProject extends javax.swing.JFrame {
 
         return step3;
     }
-    
+
     private void generateSummary() {
         // --- Mengambil data field utama proyek ---
         // Pengecekan inisialisasi field utama
@@ -374,10 +376,6 @@ public class CreateProject extends javax.swing.JFrame {
         int frekuensi = Integer.parseInt(frekField.getText());
         int periode = Integer.parseInt(periodeField.getText());
         double discount = Double.parseDouble(discountField.getText());
-
-        double totalSebelumDiskon = hargaPerUnit * (double)quantity * (double)frekuensi * (double)periode;
-        double totalSetelahDiskon = totalSebelumDiskon - discount;
-
         StringBuilder summary = new StringBuilder();
 
         // --- Bagian Summary Proyek Utama (Rapi) ---
@@ -405,9 +403,14 @@ public class CreateProject extends javax.swing.JFrame {
         summary.append("Frekuensi\t: ").append(frekField.getText()).append("\n");
         summary.append("Periode\t: ").append(periodeField.getText()).append("\n");
         summary.append("Discount\t: ").append(discountField.getText()).append("\n");
-        
-        summary.append("Total\t: ").append(String.valueOf(totalSetelahDiskon)).append("\n");
-        
+
+        if (discount == 0) {
+            summary.append("Total\t: ").append(String.valueOf(hitungTotal(hargaPerUnit,quantity, frekuensi, periode))).append("\n");
+
+        } else {
+            summary.append("Total\t: ").append(String.valueOf(hitungTotal(hargaPerUnit,quantity, frekuensi, periode, discount))).append("\n");
+        }
+
         summary.append("Deskripsi\t: ").append(descriptionArea.getText()).append("\n"); // Deskripsi di baris baru
         summary.append("---------------------------\n\n"); // Pemisah antar detail
         summary.append("============= Akhir Ringkasan =============");
@@ -505,6 +508,20 @@ public class CreateProject extends javax.swing.JFrame {
         JScrollBar vertical = scrollPane.getVerticalScrollBar();
         vertical.setValue(vertical.getMaximum());
 
+    }
+
+    public double hitungTotal(double hargaPerUnit, int qty, int freq, int per) {
+        double totalSebelumDiskon = hargaPerUnit * (double) qty * (double) freq * (double) per;
+        double totalTanpaDiskon = totalSebelumDiskon;
+
+        return totalTanpaDiskon;
+    }
+
+    public double hitungTotal(double hargaPerUnit, int qty, int freq, int per, double diskon) {
+        double totalSebelumDiskon = hargaPerUnit * (double) qty * (double) freq * (double) per;
+        double totalSetelahDiskon = totalSebelumDiskon - diskon;
+
+        return totalSetelahDiskon;
     }
 
     public void showGUI() {
@@ -619,7 +636,6 @@ public class CreateProject extends javax.swing.JFrame {
                 }
             }
         }
-
 
         if (editIndex >= 0) {
             // replace existing data

@@ -6,7 +6,7 @@ import javax.swing.table.DefaultTableModel;
 import java.util.Arrays;
 import java.util.List;
 
-public class Dashboard extends javax.swing.JFrame {
+public class Dashboard extends javax.swing.JFrame implements TableActionEvent {
 
     public static List<String[]> projectList = new ArrayList<>();
 
@@ -35,148 +35,8 @@ public class Dashboard extends javax.swing.JFrame {
             }
         }
 
-        TableActionEvent event = new TableActionEvent() {
-            @Override
-            public void onEdit(int row) {
-                System.out.println("Edit: " + row);
-                System.out.println("Edit: " + row);
-
-                // Tampilkan log seperti sebelumnya
-                System.out.println("======= LOG EDIT PROJECT =======");
-                for (int i = 0; i < CreateProject.EditprojectList.size(); i++) {
-                    String[] data = CreateProject.EditprojectList.get(i);
-                    System.out.println("Data ke-" + (i + 1) + ": " + Arrays.toString(data));
-                }
-
-                System.out.println("======= ORDER DETAIL PROJECT =======");
-                for (int i = 0; i < CreateProject.orderDetailList.size(); i++) {
-                    List<String> detail = CreateProject.orderDetailList.get(i);
-                    System.out.println("Order ke-" + (i + 1) + ": " + detail);
-                }
-
-                // Buka kembali form CreateProject dan isi data berdasarkan row
-                CreateProject form = new CreateProject();
-                form.setVisible(true);
-                form.editProject(row);
-
-                Dashboard.this.dispose(); // tutup dashboard
-
-                System.out.println("======= LOG EDIT PROJECT =======");
-                for (int i = 0; i < CreateProject.EditprojectList.size(); i++) {
-                    String[] data = CreateProject.EditprojectList.get(i);
-                    System.out.println("Data ke-" + (i + 1) + ":");
-                    for (int j = 0; j < data.length; j++) {
-                        System.out.println("  Kolom " + (j + 1) + ": " + data[j]);
-                    }
-                }
-                System.out.println("================================");
-                System.out.println("======= ORDER DETAIL PROJECT =======");
-                for (int i = 0; i < CreateProject.orderDetailList.size(); i++) {
-                    List<String> detail = CreateProject.orderDetailList.get(i);
-                    System.out.println("Order ke-" + (i + 1) + ":");
-                    for (int j = 0; j < detail.size(); j++) {
-                        System.out.println("  Field " + (j + 1) + ": " + detail.get(j));
-                    }
-                }
-                System.out.println("====================================");
-            }
-
-            @Override
-            public void onDelete(int row) {
-                System.out.println("Delete: " + row);
-                int confirm = JOptionPane.showConfirmDialog(null, "Apakah anda yakin?");
-                if(confirm == 0) {  
-                    if (jTable2.isEditing()) {
-                        jTable2.getCellEditor().stopCellEditing();
-                    }
-                    model.removeRow(row);
-                }
-            }
-
-            @Override
-            public void onView(int row) {
-                System.out.println("View: " + row);
-                try {
-                    if (row >= 0 && row < CreateProject.projectList.size()) {
-                        String[] projectDetails = CreateProject.projectList.get(row);
-                        System.out.println(projectDetails.length);
-
-                        double hargaPerUnit = Double.parseDouble(projectDetails[10]);
-                        int quantity = Integer.parseInt(projectDetails[12]);
-                        int frekuensi = Integer.parseInt(projectDetails[13]);
-                        int periode = Integer.parseInt(projectDetails[14]);
-                        double discount = Double.parseDouble(projectDetails[15]);
-
-                        double totalSebelumDiskon = hargaPerUnit * (double) quantity * (double) frekuensi * (double) periode;
-                        double totalSetelahDiskon = totalSebelumDiskon - discount;
-
-                        StringBuilder message = new StringBuilder();
-                        message.append("================ DETAIL PROYEK ================\n\n");
-
-                        message.append(String.format("Nama Proyek    : %s\n", projectDetails.length > 0 && projectDetails[0] != null ? projectDetails[0] : "N/A"));
-                        message.append(String.format("Tanggal Order  : %s\n", projectDetails.length > 1 && projectDetails[1] != null ? projectDetails[1] : "N/A"));
-                        message.append(String.format("Tanggal Event  : %s\n", projectDetails.length > 2 && projectDetails[2] != null ? projectDetails[2] : "N/A"));
-                        message.append(String.format("Kota Venue     : %s\n", projectDetails.length > 3 && projectDetails[3] != null ? projectDetails[3] : "N/A"));
-                        message.append("\n");
-
-                        message.append("--- Informasi Klien ---\n");
-                        message.append(String.format("Nama Perusahaan: %s\n", projectDetails.length > 4 && projectDetails[4] != null ? projectDetails[4] : "N/A"));
-                        message.append(String.format("Nama Kontak    : %s\n", projectDetails.length > 6 && projectDetails[6] != null ? projectDetails[6] : "N/A")); // Menggunakan index 6 untuk Nama Kontak
-                        message.append(String.format("Telepon Kontak : %s\n", projectDetails.length > 5 && projectDetails[5] != null ? projectDetails[5] : "N/A")); // Menggunakan index 5 untuk Telepon
-                        message.append("\n");
-
-                        message.append("--- Catatan ---\n");
-                        message.append(String.format("Responsibility : %s\n", projectDetails.length > 8 && projectDetails[8] != null ? projectDetails[8] : "N/A")); // Menggunakan index 8
-                        message.append("\n");
-
-                        message.append("--- Catatan ---\n");
-                        message.append(String.format("Catatan Klien  : %s\n", projectDetails.length > 7 && projectDetails[7] != null ? projectDetails[7] : "N/A")); // Menggunakan index 8
-                        message.append("\n");
-
-                        message.append("--- Detail Item (Pertama) ---\n");
-                        message.append(String.format("Nama Item      : %s\n", projectDetails.length > 9 && projectDetails[9] != null ? projectDetails[9] : "N/A"));
-                        message.append(String.format("Harga per Unit : %s\n", projectDetails.length > 10 && projectDetails[10] != null ? projectDetails[10] : "N/A"));
-                        message.append(String.format("Deskripsi      : %s\n", projectDetails.length > 11 && projectDetails[11] != null ? projectDetails[11] : "N/A"));
-                        message.append(String.format("Quantity       : %s\n", projectDetails.length > 12 && projectDetails[12] != null ? projectDetails[12] : "N/A"));
-                        message.append(String.format("Frequensi      : %s\n", projectDetails.length > 13 && projectDetails[13] != null ? projectDetails[13] : "N/A"));
-                        message.append(String.format("Periode        : %s\n", projectDetails.length > 14 && projectDetails[14] != null ? projectDetails[14] : "N/A"));
-                        message.append(String.format("Discount       : %s\n", projectDetails.length > 15 && projectDetails[15] != null ? projectDetails[15] : "N/A"));
-                        message.append(String.format("Total          : %.2f\n", totalSetelahDiskon));
-
-                        message.append("\n");
-
-                        message.append("==============================================\n");
-                        JOptionPane.showMessageDialog(
-                                null, // Parent component (null artinya di tengah layar)
-                                message.toString(), // Pesan yang sudah dibangun
-                                "Detail Proyek", // Judul dialog
-                                JOptionPane.INFORMATION_MESSAGE // Tipe ikon
-                        );
-
-                    } else {
-                        // Handle jika index tidak valid atau data tidak ditemukan
-                        JOptionPane.showMessageDialog(
-                                null,
-                                "Data proyek tidak ditemukan untuk baris ini.",
-                                "Error",
-                                JOptionPane.ERROR_MESSAGE
-                        );
-                    }
-                } catch (Exception e) {
-                    // Tangani error jika terjadi
-                    e.printStackTrace(); // Cetak stack trace untuk debugging
-                    JOptionPane.showMessageDialog(
-                            null,
-                            "Terjadi kesalahan saat menampilkan detail proyek: " + e.getMessage(),
-                            "Error",
-                            JOptionPane.ERROR_MESSAGE
-                    );
-                }
-            }
-        };
-
         jTable2.getColumn("Action").setCellRenderer(new TableActionCellRender());
-        jTable2.getColumn("Action").setCellEditor(new TableActionCellEditor(event));
+        jTable2.getColumn("Action").setCellEditor(new TableActionCellEditor(this));
     }
 
     @SuppressWarnings("unchecked")
@@ -324,4 +184,148 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void onEdit(int row) {
+        System.out.println("Edit: " + row);
+        System.out.println("Edit: " + row);
+
+        // Tampilkan log seperti sebelumnya
+        System.out.println("======= LOG EDIT PROJECT =======");
+        for (int i = 0; i < CreateProject.EditprojectList.size(); i++) {
+            String[] data = CreateProject.EditprojectList.get(i);
+            System.out.println("Data ke-" + (i + 1) + ": " + Arrays.toString(data));
+        }
+
+        System.out.println("======= ORDER DETAIL PROJECT =======");
+        for (int i = 0; i < CreateProject.orderDetailList.size(); i++) {
+            List<String> detail = CreateProject.orderDetailList.get(i);
+            System.out.println("Order ke-" + (i + 1) + ": " + detail);
+        }
+
+        // Buka kembali form CreateProject dan isi data berdasarkan row
+        CreateProject form = new CreateProject();
+        form.setVisible(true);
+        form.editProject(row);
+
+        Dashboard.this.dispose(); // tutup dashboard
+
+        System.out.println("======= LOG EDIT PROJECT =======");
+        for (int i = 0; i < CreateProject.EditprojectList.size(); i++) {
+            String[] data = CreateProject.EditprojectList.get(i);
+            System.out.println("Data ke-" + (i + 1) + ":");
+            for (int j = 0; j < data.length; j++) {
+                System.out.println("  Kolom " + (j + 1) + ": " + data[j]);
+            }
+        }
+        System.out.println("================================");
+        System.out.println("======= ORDER DETAIL PROJECT =======");
+        for (int i = 0; i < CreateProject.orderDetailList.size(); i++) {
+            List<String> detail = CreateProject.orderDetailList.get(i);
+            System.out.println("Order ke-" + (i + 1) + ":");
+            for (int j = 0; j < detail.size(); j++) {
+                System.out.println("  Field " + (j + 1) + ": " + detail.get(j));
+            }
+        }
+        System.out.println("====================================");
+    }
+
+    @Override
+    public void onDelete(int row) {
+        System.out.println("Delete: " + row);
+        int confirm = JOptionPane.showConfirmDialog(null, "Apakah anda yakin?");
+        if (confirm == 0) {
+            if (jTable2.isEditing()) {
+                jTable2.getCellEditor().stopCellEditing();
+            }
+            DefaultTableModel currentModel = (DefaultTableModel) jTable2.getModel();
+            currentModel.removeRow(row);
+        }
+    }
+
+    @Override
+    public void onView(int row) {
+        System.out.println("View: " + row);
+        try {
+            if (row >= 0 && row < CreateProject.projectList.size()) {
+                String[] projectDetails = CreateProject.projectList.get(row);
+                System.out.println(projectDetails.length);
+
+                double hargaPerUnit = Double.parseDouble(projectDetails[10]);
+                int quantity = Integer.parseInt(projectDetails[12]);
+                int frekuensi = Integer.parseInt(projectDetails[13]);
+                int periode = Integer.parseInt(projectDetails[14]);
+                double discount = Double.parseDouble(projectDetails[15]);
+
+                StringBuilder message = new StringBuilder();
+                message.append("================ DETAIL PROYEK ================\n\n");
+
+                message.append(String.format("Nama Proyek    : %s\n", projectDetails.length > 0 && projectDetails[0] != null ? projectDetails[0] : "N/A"));
+                message.append(String.format("Tanggal Order  : %s\n", projectDetails.length > 1 && projectDetails[1] != null ? projectDetails[1] : "N/A"));
+                message.append(String.format("Tanggal Event  : %s\n", projectDetails.length > 2 && projectDetails[2] != null ? projectDetails[2] : "N/A"));
+                message.append(String.format("Kota Venue     : %s\n", projectDetails.length > 3 && projectDetails[3] != null ? projectDetails[3] : "N/A"));
+                message.append("\n");
+
+                message.append("--- Informasi Klien ---\n");
+                message.append(String.format("Nama Perusahaan: %s\n", projectDetails.length > 4 && projectDetails[4] != null ? projectDetails[4] : "N/A"));
+                message.append(String.format("Nama Kontak    : %s\n", projectDetails.length > 6 && projectDetails[6] != null ? projectDetails[6] : "N/A")); // Menggunakan index 6 untuk Nama Kontak
+                message.append(String.format("Telepon Kontak : %s\n", projectDetails.length > 5 && projectDetails[5] != null ? projectDetails[5] : "N/A")); // Menggunakan index 5 untuk Telepon
+                message.append("\n");
+
+                message.append("--- Catatan ---\n");
+                message.append(String.format("Responsibility : %s\n", projectDetails.length > 8 && projectDetails[8] != null ? projectDetails[8] : "N/A")); // Menggunakan index 8
+                message.append("\n");
+
+                message.append("--- Catatan ---\n");
+                message.append(String.format("Catatan Klien  : %s\n", projectDetails.length > 7 && projectDetails[7] != null ? projectDetails[7] : "N/A")); // Menggunakan index 8
+                message.append("\n");
+
+                message.append("--- Detail Item (Pertama) ---\n");
+                message.append(String.format("Nama Item      : %s\n", projectDetails.length > 9 && projectDetails[9] != null ? projectDetails[9] : "N/A"));
+                message.append(String.format("Harga per Unit : %s\n", projectDetails.length > 10 && projectDetails[10] != null ? projectDetails[10] : "N/A"));
+                message.append(String.format("Deskripsi      : %s\n", projectDetails.length > 11 && projectDetails[11] != null ? projectDetails[11] : "N/A"));
+                message.append(String.format("Quantity       : %s\n", projectDetails.length > 12 && projectDetails[12] != null ? projectDetails[12] : "N/A"));
+                message.append(String.format("Frequensi      : %s\n", projectDetails.length > 13 && projectDetails[13] != null ? projectDetails[13] : "N/A"));
+                message.append(String.format("Periode        : %s\n", projectDetails.length > 14 && projectDetails[14] != null ? projectDetails[14] : "N/A"));
+                message.append(String.format("Discount       : %s\n", projectDetails.length > 15 && projectDetails[15] != null ? projectDetails[15] : "N/A"));
+
+                CreateProject cP = new CreateProject();
+                cP.dispose();
+                if (discount == 0) {
+                    message.append(String.format("Total          : %.2f\n", cP.hitungTotal(hargaPerUnit, quantity, frekuensi, periode)));
+                } else {
+                    message.append(String.format("Total          : %.2f\n", cP.hitungTotal(hargaPerUnit, quantity, frekuensi, periode, discount)));
+                }
+
+                message.append("\n");
+
+                message.append("==============================================\n");
+                JOptionPane.showMessageDialog(
+                        null, // Parent component (null artinya di tengah layar)
+                        message.toString(), // Pesan yang sudah dibangun
+                        "Detail Proyek", // Judul dialog
+                        JOptionPane.INFORMATION_MESSAGE // Tipe ikon
+                );
+
+            } else {
+                // Handle jika index tidak valid atau data tidak ditemukan
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Data proyek tidak ditemukan untuk baris ini.",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE
+                );
+            }
+        } catch (Exception e) {
+            // Tangani error jika terjadi
+            e.printStackTrace(); // Cetak stack trace untuk debugging
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Terjadi kesalahan saat menampilkan detail proyek: " + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }
 }
+
