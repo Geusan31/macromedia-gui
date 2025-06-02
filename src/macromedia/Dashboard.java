@@ -85,10 +85,13 @@ public class Dashboard extends javax.swing.JFrame {
             @Override
             public void onDelete(int row) {
                 System.out.println("Delete: " + row);
-                if (jTable2.isEditing()) {
-                    jTable2.getCellEditor().stopCellEditing();
+                int confirm = JOptionPane.showConfirmDialog(null, "Apakah anda yakin?");
+                if(confirm == 0) {  
+                    if (jTable2.isEditing()) {
+                        jTable2.getCellEditor().stopCellEditing();
+                    }
+                    model.removeRow(row);
                 }
-                model.removeRow(row);
             }
 
             @Override

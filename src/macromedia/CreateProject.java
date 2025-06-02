@@ -151,7 +151,7 @@ public class CreateProject extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 currentStep--;
-                if (currentStep > 1) {
+                if (currentStep > 0) {
                     System.out.println("Current Step: " + currentStep);
                     cardLayout.show(mainPanel, "Step" + currentStep);
                     updateButtonState();
@@ -189,22 +189,22 @@ public class CreateProject extends javax.swing.JFrame {
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.gridwidth = 1;
-        step1.add(new JLabel("Project Name:"), gbc);
-
-        gbc.gridy = 2;
-        projectNameField.setColumns(50);
-        projectNameField.setBorder(BorderFactory.createEmptyBorder(10, 5, 10, 5));
-        step1.add(projectNameField, gbc);
-
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        step1.add(new JLabel("Order Date:"), gbc);
+        step1.add(new JLabel("Order Data:"), gbc);
 
         gbc.gridy = 2;
         orderDateField.setColumns(50);
         orderDateField.setBorder(BorderFactory.createEmptyBorder(10, 5, 10, 5));
         orderDateField.setEditable(false);
         step1.add(orderDateField, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        step1.add(new JLabel("Project Name:"), gbc);
+
+        gbc.gridy = 2;
+        projectNameField.setColumns(50);
+        projectNameField.setBorder(BorderFactory.createEmptyBorder(10, 5, 10, 5));
+        step1.add(projectNameField, gbc);
 
         JLabel eventDateLabel = new JLabel("Event Date:");
         gbc.gridx = 0;
