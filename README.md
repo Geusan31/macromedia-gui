@@ -18,4 +18,4 @@ Sebelum menjalankan proyek ini, pastikan Anda memiliki:
 ## Cara Menjalankan Proyek
 1. **Clone repository** ini ke komputer Anda:
    ```sh
-   git clone [https://github.com/username/macromedia-gui-java.git](https://github.com/username/macromedia-gui-java.git)
+   git clone [https://github.com/Geusan31/macromedia-gui.git](https://github.com/Geusan31/macromedia-gui.git)
